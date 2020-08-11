@@ -21,12 +21,10 @@ ul, ol, dl {
     list-style: none;
 }
 
-button:hover {
-    cursor: pointer;
+button, img {
+    user-select: none;
 }
 
-#content {
-    justify-content: center;
-    flex-direction: row;
-    display: flex;
+button:hover {
+    cursor: pointer;
 }

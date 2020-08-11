@@ -14,10 +14,10 @@ export default function Navbar(props) {
             display: 'flex',
         },
         navItem: {
-            margin: '0 0.5rem',
+            margin: '0 1rem',
         },
         navButton: {
-            transition: 'color 0.15s ease-in-out, border-color 0.15s ease-in-out',
+            transition: 'color 0.15s ease-in-out, border-color 0.15s ease-in-out, transform 0.15s ease-in-out',
             'border-bottom': '2px solid transparent',
             'font-size': '2rem',
             background: 'none',
@@ -25,6 +25,7 @@ export default function Navbar(props) {
             color: 'white',
             '&.active': {
                 'border-color': 'dodgerblue',
+                transform: 'scale(1.05)',
                 color: 'dodgerblue',
             },
         },
