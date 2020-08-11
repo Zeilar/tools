@@ -6,8 +6,8 @@ export default function TimerBar({ width, timer }) {
         timerBarOuter: {
             'flex-direction': 'column',
             'align-items': 'center',
+            width: 'fit-content',
             display: 'flex',
-            width: '50vw',
         },
         timerBarInner: {
             border: '2px solid white',
@@ -16,11 +16,12 @@ export default function TimerBar({ width, timer }) {
         },
         timerBar: {
             transition: 'width 1s linear',
-            background: 'rgb(0 179 101)',
+            background: 'dodgerblue',
             height: '100%',
             width: '100%',
         },
         timerClock: {
+            'font-family': 'Helvetica',
             'font-size': '10rem',
         }
     });

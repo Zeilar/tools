@@ -9,28 +9,56 @@ export default function Timer() {
             'margin-left': '1rem',
         },
         timerInputWrapper: {
-
+            'justify-content': 'space-between',
+            display: 'flex',
+            width: '100%',
         },
         timerInput: {
             border: '1px solid black',
-            margin: '0 0.25rem',
+            'text-align': 'center',
+            'font-size': '5rem',
+            height: '8rem',
+            'border-radius': '1rem',
+            width: '8rem',
         },
         timerContainer: {
             'flex-direction': 'column',
             'align-items': 'center',
             display: 'flex',
+            margin: 'auto',
+            width: '31vw',
+        },
+        buttonsWrapper: {
+            'justify-content': 'center',
+            'flex-direction': 'row',
+            'margin-top': '1rem',
+            display: 'flex',
         },
         buttons: {
-
+            'border-radius': '50%',
+            'font-size': '1.25rem',
+            margin: '0 0.5rem',
+            height: '5rem',
+            color: 'white',
+            width: '5rem',
+        },
+        startTimer: {
+            background: 'green',
+        },
+        pauseTimer: {
+            background: 'yellow',
+        },
+        resetTimer: {
+            background: 'red',
         },
     });
     const classes = styles();
 
-    const [timerSeconds, setTimerSeconds] = useState(localStorage.getItem('timer-seconds') ?? 0);
-    const [timerMinutes, setTimerMinutes] = useState(localStorage.getItem('timer-minutes') ?? 0);
-    const [timerHours, setTimerHours] = useState(localStorage.getItem('timer-hours') ?? 0);
     const [timerActive, setTimerState] = useState(false);
+    const [timerSeconds, setTimerSeconds] = useState(0);
+    const [timerMinutes, setTimerMinutes] = useState(0);
     const [timerInput, setTimerInput] = useState(false);
+    const [timerHours, setTimerHours] = useState(0);
     const [barWidth, setsBarWidth] = useState(100);
 
     useEffect(() => {
@@ -45,19 +73,11 @@ export default function Timer() {
                     setTimerHours(timerHours - 1)
                 }
                 if (timerSeconds > 0) setTimerSeconds(timerSeconds - 1);
-
                 setsBarWidth(barWidth - (100 / timerInput));
             }, 1000);
             if (Math.round(barWidth) <= 0) {
                 clearTimeout(timerTick);
-                document.querySelector('#inputSeconds').value = '00';
-                document.querySelector('#inputMinutes').value = '00';
-                document.querySelector('#inputHours').value = '00';
-                setTimerInput(false);
-                setTimerSeconds(0);
-                setTimerMinutes(0);
-                setTimerHours(0);
-                setsBarWidth(0);
+                timerReset(0);
 
                 setTimeout(() => {
                     setTimerState(false);
@@ -79,6 +99,9 @@ export default function Timer() {
         const secondsInput = document.querySelector('#inputSeconds');
         const minutesInput = document.querySelector('#inputMinutes');
         const hoursInput = document.querySelector('#inputHours');
+        localStorage.setItem('timerSeconds', secondsInput.value);
+        localStorage.setItem('timerMinutes', minutesInput.value);
+        localStorage.setItem('timerHours', hoursInput.value);
         let seconds = parseInt(secondsInput.value);
         let minutes = parseInt(minutesInput.value);
         let hours = parseInt(hoursInput.value);
@@ -114,16 +137,23 @@ export default function Timer() {
         formatInput(e);
     }
 
-    function timerReset() {
+    function timerReset(barWidth = 100) {
         document.querySelector('#inputSeconds').value = '00';
         document.querySelector('#inputMinutes').value = '00';
         document.querySelector('#inputHours').value = '00';
+        setsBarWidth(barWidth);
         setTimerInput(false);
         setTimerState(false);
         setTimerSeconds(0);
         setTimerMinutes(0);
-        setsBarWidth(100);
         setTimerHours(0);
+    }
+
+    function timerPause() {
+        document.querySelector('#inputSeconds').value = formatNumber(timerSeconds);
+        document.querySelector('#inputMinutes').value = formatNumber(timerMinutes);
+        document.querySelector('#inputHours').value = formatNumber(timerHours);
+        setTimerState(false);
     }
 
     function formatNumber(number) {
@@ -133,18 +163,27 @@ export default function Timer() {
     return (
         <div className={classes.timerContainer}>
             <div className={classes.timerInputWrapper}>
-                <input className={classes.timerInput} id="inputHours" onChange={inputChange} type="number" min="0" max="59" defaultValue="00" />
-                <input className={classes.timerInput} id="inputMinutes" onChange={inputChange} type="number" min="0" max="59" defaultValue="00" />
-                <input className={classes.timerInput} id="inputSeconds" onChange={inputChange} type="number" min="0" max="59" defaultValue="00" />
+                <input 
+                    className={classes.timerInput} maxLength="2" id="inputHours" type="text" onBlur={inputChange}
+                    onClick={(e) => e.target.select()} defaultValue={localStorage.getItem('timerHours') ?? '00'}
+                />
+                <input 
+                    className={classes.timerInput} maxLength="2" id="inputMinutes" type="text" onBlur={inputChange}
+                    onClick={(e) => e.target.select()} defaultValue={localStorage.getItem('timerMinutes') ?? '00'} 
+                />
+                <input 
+                    className={classes.timerInput} maxLength="2" id="inputSeconds" type="text" onBlur={inputChange}
+                    onClick={(e) => e.target.select()} defaultValue={localStorage.getItem('timerSeconds') ?? '00'}
+                />
             </div>
             <TimerBar width={barWidth} timer={`${formatNumber(timerHours)}:${formatNumber(timerMinutes)}:${formatNumber(timerSeconds)}`} />
-            <div className={classes.buttons}>
+            <div className={classes.buttonsWrapper}>
                 { 
                     !timerActive
-                        ? <button className={classes.startTimer} onClick={timerStart} type="button">Start</button>
-                        : <button className={classes.startTimer} onClick={() => setTimerState(false)} type="button">Pause</button>
+                        ? <button className={`${classes.buttons} ${classes.startTimer}`} onClick={timerStart} type="button">Start</button>
+                        : <button className={`${classes.buttons} ${classes.pauseTimer}`} onClick={timerPause} type="button">Pause</button>
                 }
-                <button className={classes.startTimer} onClick={timerReset} type="button">Reset</button>
+                <button className={`${classes.buttons} ${classes.resetTimer}`} onClick={() => timerReset()} type="button">Reset</button>
             </div>
         </div>
     );

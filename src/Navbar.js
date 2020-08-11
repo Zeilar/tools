@@ -23,6 +23,9 @@ export default function Navbar(props) {
             background: 'none',
             padding: '1rem',
             color: 'white',
+            '&:hover': {
+                color: 'dodgerblue',
+            },
             '&.active': {
                 'border-color': 'dodgerblue',
                 transform: 'scale(1.05)',
