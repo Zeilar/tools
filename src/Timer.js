@@ -4,6 +4,7 @@ import TimerBar from './TimerBar';
 
 export default function Timer() {
     const audio = new Audio('alarm.mp3');
+    audio.volume = 0.25;
     const styles = createUseStyles({
         startTimer: {
             'margin-left': '1rem',
@@ -31,10 +32,11 @@ export default function Timer() {
         buttonsWrapper: {
             'justify-content': 'center',
             'flex-direction': 'row',
-            'margin-top': '1rem',
+            'margin-top': '2rem',
             display: 'flex',
         },
         buttons: {
+            background: 'dodgerblue',
             'border-radius': '50%',
             'font-size': '1.25rem',
             margin: '0 0.5rem',
@@ -43,10 +45,10 @@ export default function Timer() {
             width: '5rem',
         },
         startTimer: {
-            background: 'green',
+            
         },
         pauseTimer: {
-            background: 'yellow',
+            
         },
         resetTimer: {
             background: 'red',
@@ -57,7 +59,7 @@ export default function Timer() {
     const [timerActive, setTimerState] = useState(false);
     const [timerSeconds, setTimerSeconds] = useState(0);
     const [timerMinutes, setTimerMinutes] = useState(0);
-    const [timerInput, setTimerInput] = useState(false);
+    const [timerInput, setTimerInput] = useState(0);
     const [timerHours, setTimerHours] = useState(0);
     const [barWidth, setsBarWidth] = useState(100);
 
@@ -81,7 +83,6 @@ export default function Timer() {
 
                 setTimeout(() => {
                     setTimerState(false);
-                    audio.volume = 0.25;
                     audio.play();
                     setTimeout(() => {
                         audio.pause();
@@ -90,6 +91,8 @@ export default function Timer() {
                 }, 1000);
             }
             return () => {
+                audio.pause();
+                audio.currentTime = 0;
                 clearTimeout(timerTick);
             }
         }
@@ -105,19 +108,15 @@ export default function Timer() {
         let seconds = parseInt(secondsInput.value);
         let minutes = parseInt(minutesInput.value);
         let hours = parseInt(hoursInput.value);
-
         if (!seconds) seconds = 0;
-        secondsInput.value = formatNumber(seconds);
-
         if (!minutes) minutes = 0;
-        minutesInput.value = formatNumber(minutes);
-
         if (!hours) hours = 0;
+        secondsInput.value = formatNumber(seconds);
+        minutesInput.value = formatNumber(minutes);
         hoursInput.value = formatNumber(hours);
 
         const input = seconds + (minutes * 60) + (hours * 60 * 60);
         
-        if (timerSeconds !== input) setsBarWidth(100);
         if (input <= 0) return setTimerState(false);
 
         setTimerSeconds(seconds);
@@ -138,15 +137,15 @@ export default function Timer() {
     }
 
     function timerReset(barWidth = 100) {
-        document.querySelector('#inputSeconds').value = '00';
-        document.querySelector('#inputMinutes').value = '00';
-        document.querySelector('#inputHours').value = '00';
+        document.querySelector('#inputSeconds').value = localStorage.getItem('timerSeconds') ?? '00';
+        document.querySelector('#inputMinutes').value = localStorage.getItem('timerMinutes') ?? '00';
+        document.querySelector('#inputHours').value = localStorage.getItem('timerHours') ?? '00';
         setsBarWidth(barWidth);
-        setTimerInput(false);
         setTimerState(false);
         setTimerSeconds(0);
         setTimerMinutes(0);
         setTimerHours(0);
+        setTimerInput(0);
     }
 
     function timerPause() {
@@ -180,10 +179,14 @@ export default function Timer() {
             <div className={classes.buttonsWrapper}>
                 { 
                     !timerActive
-                        ? <button className={`${classes.buttons} ${classes.startTimer}`} onClick={timerStart} type="button">Start</button>
+                        ? <button className={`${classes.buttons} ${classes.startTimer}`} onClick={timerStart} type="button" disabled={!barWidth}>
+                            Start
+                        </button>
                         : <button className={`${classes.buttons} ${classes.pauseTimer}`} onClick={timerPause} type="button">Pause</button>
                 }
-                <button className={`${classes.buttons} ${classes.resetTimer}`} onClick={() => timerReset()} type="button">Reset</button>
+                <button className={`${classes.buttons} ${classes.resetTimer}`} onClick={() => timerReset(100, true)} type="button" disabled={barWidth >= 100}>
+                    Reset
+                </button>
             </div>
         </div>
     );

@@ -25,6 +25,14 @@ button, img {
     user-select: none;
 }
 
+button[disabled] {
+    opacity: 0.25;
+}
+
+button[disabled]:hover {
+    cursor: default;
+}
+
 button:hover {
     cursor: pointer;
 }
