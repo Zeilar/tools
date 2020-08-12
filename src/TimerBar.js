@@ -23,6 +23,7 @@ export default function TimerBar({ width, timer }) {
         timerClock: {
             'font-family': 'Helvetica',
             'font-size': '10rem',
+            margin: '1% 0',
         }
     });
     const classes = styles();

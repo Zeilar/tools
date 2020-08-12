@@ -4,8 +4,8 @@ import React, { useState } from 'react';
 export default function Footer() {
     const styles = createUseStyles({
         footer: {
+            background: 'rgb(10, 10, 10)',
             'margin-top': 'auto',
-            background: 'white',
             padding: '2%',
         },
         footerText: {

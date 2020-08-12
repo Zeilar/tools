@@ -2,8 +2,8 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
         'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
         sans-serif;
-    background: rgb(245, 245, 245);
-    color: black;
+    background: rgb(20, 20, 20);
+    color: white;
 }
 
 #root {
@@ -37,10 +37,16 @@ button, img {
 
 a {
     text-decoration: none;
+    cursor: pointer;
 }
 
 a:visited {
     color: black;
+}
+
+::selection {
+    background: rgba(0, 0, 0, 0.75);
+    color: dodgerblue;
 }
 
 button {
