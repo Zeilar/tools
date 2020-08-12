@@ -1,6 +1,7 @@
 import ShadowGenerator from './ShadowGenerator'
 import React, { useState } from 'react';
 import Navbar from './Navbar';
+import Footer from './Footer';
 import Timer from './Timer';
 
 export default function App() {
@@ -25,6 +26,7 @@ export default function App() {
             />
             {timerVisible ? <Timer /> : ''}
             {shadowGeneratorVisible ? <ShadowGenerator /> : ''}
+            <Footer />
         </>
     );
 }

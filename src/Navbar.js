@@ -6,7 +6,8 @@ export default function Navbar(props) {
         navbar: {
             'justify-content': 'center',
             'flex-direction': 'row',
-            margin: '10vh 0',
+            background: 'white',
+            padding: '10vh 0',
             display: 'flex',
         },
         navList: {
@@ -16,13 +17,13 @@ export default function Navbar(props) {
         navItem: {
             margin: '0 1rem',
         },
-        navButton: {
+        navLink: {
             transition: 'color 0.15s ease-in-out, border-color 0.15s ease-in-out, transform 0.15s ease-in-out',
             'border-bottom': '2px solid transparent',
+            'user-select': 'none',
             'font-size': '2rem',
             background: 'none',
             padding: '1rem',
-            color: 'white',
             '&:hover': {
                 color: 'dodgerblue',
             },
@@ -36,17 +37,19 @@ export default function Navbar(props) {
     const classes = styles();
 
     function timerShow(e) {
+        e.preventDefault();
         props.onTimerShow();
         activeButton(e);
     }
 
     function shadowGeneratorShow(e) {
+        e.preventDefault();
         props.onShadowGeneratorShow();
         activeButton(e);
     }
 
     function activeButton(e) {
-        const activeButton = document.querySelector(`.${classes.navButton}.active`);
+        const activeButton = document.querySelector(`.${classes.navLink}.active`);
         if (activeButton) activeButton.classList.remove('active');
         e.target.classList.add('active');
     }
@@ -55,14 +58,10 @@ export default function Navbar(props) {
         <nav className={classes.navbar}>
             <ul className={classes.navList}>
                <li className={classes.navItem}>
-                    <button className={classes.navButton} onClick={timerShow} type="button">
-                        Timer
-                    </button>
+                    <a className={classes.navLink} onClick={timerShow} href="#">Timer</a>
                </li>
                <li className={classes.navItem}>
-                    <button className={classes.navButton} onClick={shadowGeneratorShow} type="button">
-                        Shadow Generator
-                    </button>
+                    <a className={classes.navLink} onClick={shadowGeneratorShow} href="#">Shadow Generator</a>
                </li>
             </ul>
         </nav>

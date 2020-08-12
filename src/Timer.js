@@ -25,9 +25,8 @@ export default function Timer() {
         timerContainer: {
             'flex-direction': 'column',
             'align-items': 'center',
+            margin: '0 auto',
             display: 'flex',
-            margin: 'auto',
-            width: '31vw',
         },
         buttonsWrapper: {
             'justify-content': 'center',
@@ -160,7 +159,7 @@ export default function Timer() {
     }
 
     return (
-        <div className={classes.timerContainer}>
+        <div className={classes.timerContainer} id="content">
             <div className={classes.timerInputWrapper}>
                 <input 
                     className={classes.timerInput} maxLength="2" id="inputHours" type="text" onBlur={inputChange}
@@ -179,13 +178,15 @@ export default function Timer() {
             <div className={classes.buttonsWrapper}>
                 { 
                     !timerActive
-                        ? <button className={`${classes.buttons} ${classes.startTimer}`} onClick={timerStart} type="button" disabled={!barWidth}>
-                            Start
+                        ? <button className={`${classes.buttons} ${classes.startTimer}`} onClick={timerStart} disabled={!barWidth}>
+                            <span>Start</span>
                         </button>
-                        : <button className={`${classes.buttons} ${classes.pauseTimer}`} onClick={timerPause} type="button">Pause</button>
+                        : <button className={`${classes.buttons} ${classes.pauseTimer}`} onClick={timerPause} type="button">
+                            <span>Pause</span>
+                        </button>
                 }
-                <button className={`${classes.buttons} ${classes.resetTimer}`} onClick={() => timerReset(100, true)} type="button" disabled={barWidth >= 100}>
-                    Reset
+                <button className={`${classes.buttons} ${classes.resetTimer}`} onClick={() => timerReset(100, true)} disabled={barWidth >= 100}>
+                    <span>Reset</span>
                 </button>
             </div>
         </div>

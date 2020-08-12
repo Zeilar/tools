@@ -10,7 +10,7 @@ export default function TimerBar({ width, timer }) {
             display: 'flex',
         },
         timerBarInner: {
-            border: '2px solid white',
+            border: '1px solid black',
             height: '2.5vh',
             width: '100%',
         },
