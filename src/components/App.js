@@ -1,8 +1,8 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { lightTheme, darkTheme } from "../styles/Themes";
+import { GlobalStyles } from "../styles/GlobalStyles";
 import { ThemeProvider } from "styled-components";
-import { lightTheme, darkTheme } from "./Themes";
 import ShadowGenerator from './ShadowGenerator';
-import { GlobalStyles } from "./GlobalStyles";
 import React, { useState } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
