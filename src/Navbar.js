@@ -27,6 +27,9 @@ export default function Navbar(props) {
             'font-size': '2rem',
             background: 'none',
             color: 'white',
+            '&:visited': {
+                color: 'white',
+            },
             '&:hover': {
                 color: 'dodgerblue',
             },
