@@ -1,5 +1,5 @@
 import { createUseStyles } from 'react-jss';
-import React, { useState } from 'react';
+import React from 'react';
 
 export default function Footer() {
     const styles = createUseStyles({
@@ -10,6 +10,7 @@ export default function Footer() {
         },
         footerText: {
             'text-align': 'center',
+            color: 'white',
         }
     });
     const classes = styles();

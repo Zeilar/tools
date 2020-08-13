@@ -1,3 +1,5 @@
+import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { createUseStyles } from 'react-jss';
 import React from 'react';
 
@@ -7,6 +9,7 @@ export default function Navbar(props) {
             background: 'rgb(10, 10, 10)',
             'justify-content': 'center',
             'flex-direction': 'row',
+            position: 'relative',
             display: 'flex',
             padding: '1rem',
         },
@@ -15,6 +18,7 @@ export default function Navbar(props) {
             display: 'flex',
         },
         navItem: {
+
         },
         navLink: {
             transition: 'color 0.15s ease-in-out, transform 0.15s ease-in-out, background 0.15s ease-in-out',
@@ -30,6 +34,45 @@ export default function Navbar(props) {
                 transform: 'scale(1.05)',
                 color: 'dodgerblue',
             },
+        },
+        themeTogglerWrapper: {
+            transform: 'translate(-50%, -50%)',
+            position: 'absolute',
+            right: '0',
+            top: '50%',
+        },
+        themeToggler: {
+            transition: 'background 0.15s ease-in-out',
+            'justify-content': 'space-between',
+            'align-items': 'center',
+            'border-radius': '3rem',
+            position: 'relative',
+            padding: '0.25rem',
+            cursor: 'pointer',
+            height: '1.5rem',
+            display: 'flex',
+            width: '3rem',
+            '&.light': {
+                background: 'white',
+            },
+            '&.dark': {
+                background: 'rgb(40, 40, 40)',
+            },
+        },
+        ball: {
+            transition: 'right 0.15s ease-in-out, color 0.15s ease-in-out',
+            position: 'absolute',
+            '&.light': {
+                right: '0.25rem',
+                color: 'black',
+            },
+            '&.dark': {
+                right: '1.5rem',
+                color: 'white',
+            },
+        },
+        checkbox: {
+            display: 'none',
         },
     });
     const classes = styles();
@@ -62,6 +105,15 @@ export default function Navbar(props) {
                     <a className={classes.navLink} onClick={shadowGeneratorShow}>Shadow Generator</a>
                </li>
             </ul>
+            <div className={classes.themeTogglerWrapper}>
+                <input className={classes.checkbox} type="checkbox" id="themeToggler" onChange={props.toggleTheme} />
+                <label className={`${classes.themeToggler} ${props.theme}`} htmlFor="themeToggler">
+                    <FontAwesomeIcon 
+                        className={`${props.theme === 'dark' ? 'dark' : 'light'} ${classes.ball}`}
+                        icon={props.theme === 'dark' ? faMoon : faSun} 
+                    />
+                </label>
+            </div>
         </nav>
     );
 }
