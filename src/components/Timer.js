@@ -108,6 +108,10 @@ export default function Timer() {
                 setOriginalInput(0);
                 setTimerState(false);
             }
+
+            return () => {
+                clearTimeout(timerTick);
+            }
         }
     }, [timerSeconds, timerActive, barWidth]);
 
