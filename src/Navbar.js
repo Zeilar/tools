@@ -1,6 +1,7 @@
 import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { createUseStyles } from 'react-jss';
+import { Link } from 'react-router-dom';
 import React from 'react';
 
 export default function Navbar(props) {
@@ -79,14 +80,10 @@ export default function Navbar(props) {
     const classes = styles();
 
     function timerShow(e) {
-        e.preventDefault();
-        props.onTimerShow();
         activeButton(e);
     }
 
     function shadowGeneratorShow(e) {
-        e.preventDefault();
-        props.onShadowGeneratorShow();
         activeButton(e);
     }
 
@@ -100,10 +97,10 @@ export default function Navbar(props) {
         <nav className={classes.navbar}>
             <ul className={classes.navList}>
                <li className={classes.navItem}>
-                    <a className={classes.navLink} onClick={timerShow}>Timer</a>
+                    <Link to="/timer" className={classes.navLink} href="/timer">Timer</Link>
                </li>
                <li className={classes.navItem}>
-                    <a className={classes.navLink} onClick={shadowGeneratorShow}>Shadow Generator</a>
+                    <Link to="/shadow-generator" className={classes.navLink} href="/shadow-generator">Shadow Generator</Link>
                </li>
             </ul>
             <div className={classes.themeTogglerWrapper}>

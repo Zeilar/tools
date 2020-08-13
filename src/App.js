@@ -1,3 +1,4 @@
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "./Themes";
 import ShadowGenerator from './ShadowGenerator';
@@ -37,17 +38,14 @@ export default function App() {
     }
 
     return (
-        <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
-            <GlobalStyles />
-            <Navbar
-                onShadowGeneratorShow={onShadowGeneratorShow}
-                onTimerShow={onTimerShow}
-                toggleTheme={toggleTheme}
-                theme={theme}
-            />
-            {timerVisible ? <Timer /> : ''}
-            {shadowGeneratorVisible ? <ShadowGenerator /> : ''}
-            <Footer />
-        </ThemeProvider>
+        <Router>
+            <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+                <GlobalStyles />
+                <Navbar toggleTheme={toggleTheme} theme={theme} />
+                <Route path="/timer" component={Timer} />
+                <Route path="/shadow-generator" component={ShadowGenerator} />
+                <Footer />
+            </ThemeProvider>
+        </Router>
     );
 }
