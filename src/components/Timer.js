@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { createUseStyles } from 'react-jss';
 
 export default function Timer() {
@@ -77,19 +77,27 @@ export default function Timer() {
     });
     const classes = styles();
 
+    const [originalInput, setOriginalInput] = useState(0);
     const [timerActive, setTimerState] = useState(false);
     const [timerSeconds, setTimerSeconds] = useState(0);
     const [barWidth, setBarWidth] = useState(100);
+    const inputSeconds = useRef();
+    const inputMinutes = useRef();
+    const inputHours = useRef();
 
     useEffect(() => {
-        if (timerActive) {
-            const timerTick = setTimeout(() => {
-                document.querySelector('#inputSeconds').value = formatNumber(Math.floor(timerFormat().seconds));
-                document.querySelector('#inputMinutes').value = formatNumber(Math.floor(timerFormat().minutes));
-                document.querySelector('#inputHours').value = formatNumber(Math.floor(timerFormat().hours));
+        if (barWidth <= 0) setBarWidth(0); 
+
+        inputSeconds.current.value = formatNumber(Math.floor(timerFormat().seconds));
+        inputMinutes.current.value = formatNumber(Math.floor(timerFormat().minutes));
+        inputHours.current.value = formatNumber(Math.round(timerFormat().hours));
+
+        if (timerActive) {            
+            const timerTick = setTimeout(() => {       
                 setTimerSeconds(timerSeconds - 1);
-                setBarWidth(barWidth - (100 / timerSeconds));
+                setBarWidth(barWidth - (100 / originalInput));
             }, 1000);
+
             if (timerSeconds <= 0) {
                 clearTimeout(timerTick);
                 audio.play();
@@ -97,15 +105,16 @@ export default function Timer() {
                     audio.pause();
                     audio.currentTime = 0;
                 }, 5000);
+                setOriginalInput(0);
                 setTimerState(false);
             }
         }
     }, [timerSeconds, timerActive, barWidth]);
 
     function timerStart() {
-        const secondsInput = document.querySelector('#inputSeconds');
-        const minutesInput = document.querySelector('#inputMinutes');
-        const hoursInput = document.querySelector('#inputHours');
+        const secondsInput = inputSeconds.current;
+        const minutesInput = inputMinutes.current;
+        const hoursInput = inputHours.current;
 
         let seconds = parseInt(secondsInput.value);
         let minutes = parseInt(minutesInput.value);
@@ -118,14 +127,17 @@ export default function Timer() {
         secondsInput.value = formatNumber(seconds);
         minutesInput.value = formatNumber(minutes);
         hoursInput.value = formatNumber(hours);
+
+        const totalSeconds = seconds + (minutes * 60) + (hours * 60 * 60);
         
-        if (seconds + (minutes * 60) + (hours * 60 * 60) <= 0) return setTimerState(false);
+        if (totalSeconds <= 0) return setTimerState(false);
 
         localStorage.setItem('timerSeconds', seconds);
         localStorage.setItem('timerMinutes', minutes);
         localStorage.setItem('timerHours', hours);
 
-        setTimerSeconds(seconds);
+        setOriginalInput(totalSeconds);
+        setTimerSeconds(totalSeconds);
         setTimerState(true);  
     }
 
@@ -165,8 +177,12 @@ export default function Timer() {
     }
 
     function timerReset() {
+        audio.pause();
+        audio.currentTime = 0;
         setTimerState(false);
+        setOriginalInput(0);
         setTimerSeconds(0);
+        setBarWidth(100);
     }
 
     function timerPause() {
@@ -181,15 +197,15 @@ export default function Timer() {
         <div className={classes.timerContainer} id="content">
             <div className={classes.timerInputWrapper}>
                 <input 
-                    className={classes.timerInput} maxLength="2" id="inputHours" type="text" onBlur={inputChange}
+                    className={classes.timerInput} maxLength="2" id="inputHours" type="text" onBlur={inputChange} ref={inputHours}
                     onClick={(e) => e.target.select()} defaultValue={formatNumber(localStorage.getItem('timerHours')) ?? '00'}
                 />
                 <input 
-                    className={classes.timerInput} maxLength="2" id="inputMinutes" type="text" onBlur={inputChange}
+                    className={classes.timerInput} maxLength="2" id="inputMinutes" type="text" onBlur={inputChange} ref={inputMinutes}
                     onClick={(e) => e.target.select()} defaultValue={formatNumber(localStorage.getItem('timerMinutes')) ?? '00'} 
                 />
                 <input 
-                    className={classes.timerInput} maxLength="2" id="inputSeconds" type="text" onBlur={inputChange}
+                    className={classes.timerInput} maxLength="2" id="inputSeconds" type="text" onBlur={inputChange} ref={inputSeconds}
                     onClick={(e) => e.target.select()} defaultValue={formatNumber(localStorage.getItem('timerSeconds')) ?? '00'}
                 />
             </div>
