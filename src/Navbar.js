@@ -46,6 +46,7 @@ export default function Navbar(props) {
             'justify-content': 'space-between',
             'align-items': 'center',
             'border-radius': '3rem',
+            'user-select': 'none',
             position: 'relative',
             padding: '0.25rem',
             cursor: 'pointer',
@@ -56,7 +57,7 @@ export default function Navbar(props) {
                 background: 'white',
             },
             '&.dark': {
-                background: 'rgb(40, 40, 40)',
+                background: 'rgb(20, 20, 20)',
             },
         },
         ball: {
