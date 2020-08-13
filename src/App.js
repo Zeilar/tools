@@ -9,8 +9,6 @@ import Footer from './Footer';
 import Timer from './Timer';
 
 export default function App() {
-    const [shadowGeneratorVisible, setShadowGeneratorState] = useState(false);
-    const [timerVisible, setTimerState] = useState(false);
     const [theme, setTheme] = useState(localStorage.getItem('theme') ?? 'dark');
 
     function toggleTheme(e) {
@@ -27,22 +25,12 @@ export default function App() {
         }
     }
 
-    function onTimerShow() {
-        setShadowGeneratorState(false);
-        setTimerState(true);
-    }
-
-    function onShadowGeneratorShow() {
-        setTimerState(false);
-        setShadowGeneratorState(true);
-    }
-
     return (
         <Router>
             <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
                 <GlobalStyles />
                 <Navbar toggleTheme={toggleTheme} theme={theme} />
-                <Route path="/timer" component={Timer} />
+                <Route path="/timer" component={Timer} active={true} />
                 <Route path="/shadow-generator" component={ShadowGenerator} />
                 <Footer />
             </ThemeProvider>
