@@ -149,6 +149,7 @@ export default function Timer() {
         let seconds = 0;
         let minutes = 0;
         let hours = 0;
+
         if (timerSeconds > 0) {
             seconds = timerSeconds;
             minutes = seconds / 60;
@@ -196,7 +197,7 @@ export default function Timer() {
     }
 
     function formatNumber(number) {
-        if (number === NaN) return '00';
+        if (isNaN(number)) return '00';
         return number < 10 ? `0${number}` : number;
     }
 
