@@ -133,6 +133,8 @@ export default function Timer() {
         
         if (totalSeconds <= 0) return setTimerState(false);
 
+        if (originalInput !== totalSeconds) setBarWidth(100);
+
         resetButton.current.removeAttribute('disabled');
 
         localStorage.setItem('timerSeconds', seconds);
