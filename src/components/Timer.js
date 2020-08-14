@@ -132,7 +132,6 @@ export default function Timer() {
         const totalSeconds = seconds + (minutes * 60) + (hours * 60 * 60);
         
         if (totalSeconds <= 0) return setTimerState(false);
-
         if (originalInput !== totalSeconds) setBarWidth(100);
 
         resetButton.current.removeAttribute('disabled');
