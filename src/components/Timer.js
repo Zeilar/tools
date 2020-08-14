@@ -203,15 +203,20 @@ export default function Timer() {
     }
 
     function formatNumber(number) {
+        if (number === NaN) return '00';
         return number < 10 ? `0${number}` : number;
     }
 
+    
+
     function inputScroll(e) {
         const value = parseInt(e.target.value);
+        if (isNaN(value)) return;
         if (e.deltaY > 0) {
-            if (!value) return;
+            if (value <= 0) return;
             e.target.value = formatNumber(value - 1);
         } else {
+            if (value >= 60) return;
             e.target.value = formatNumber(value + 1);
         }
     }
