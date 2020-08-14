@@ -48,12 +48,25 @@ export default function ShadowGeneratorInput(props) {
         props.setter(props.default);
     }
 
+    function inputScroll(e) {
+        const value = parseInt(e.target.value);
+        if (e.deltaY > 0) {
+            if (value <= parseInt(e.target.getAttribute('min'))) return;
+            e.target.value = value - 1;
+            props.setter(value);
+        } else {
+            if (value >= parseInt(e.target.getAttribute('max'))) return;
+            e.target.value = value + 1;
+            props.setter(value);
+        }
+    }
+
     return (
         <div className={classes.inputsWrapper}>
             <span className={classes.inputText}>{props.text}</span>
             <input 
                 className={classes.inputSlider} onChange={(e) => props.setter(e.target.value)} ref={input}
-                type="range" min={props.min} max={props.max} defaultValue={props.default}
+                type="range" min={props.min} max={props.max} defaultValue={props.default} onWheel={inputScroll}
             />
             <button className={classes.resetButton} onClick={reset}>Reset</button>
         </div>
