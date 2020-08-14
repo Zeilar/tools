@@ -10,16 +10,21 @@ export default function Timer() {
         },
         timerInputWrapper: {
             'justify-content': 'space-between',
+            'align-items': 'baseline',
             display: 'flex',
             width: '100%',
         },
         timerInput: {
-            border: '1px solid black',
-            'text-align': 'center',
-            'font-size': '5rem',
-            height: '8rem',
             'border-radius': '1rem',
-            width: '8rem',
+            'text-align': 'center',
+            background: 'none',
+            'font-size': '10rem',
+            color: 'inherit',
+            height: '8rem',
+            width: '11rem',
+        },
+        timerInputSeparator: {
+            'font-size': '10rem',
         },
         timerContainer: {
             'flex-direction': 'column',
@@ -69,20 +74,17 @@ export default function Timer() {
             height: '100%',
             width: '100%',
         },
-        timerClock: {
-            'font-family': 'Helvetica',
-            'font-size': '10rem',
-            margin: '1% 0',
-        },
     });
     const classes = styles();
 
+    const [timerFinished, setTimerFinished] = useState(false);
     const [originalInput, setOriginalInput] = useState(0);
     const [timerActive, setTimerState] = useState(false);
     const [timerSeconds, setTimerSeconds] = useState(0);
     const [barWidth, setBarWidth] = useState(100);
     const inputSeconds = useRef();
     const inputMinutes = useRef();
+    const resetButton = useRef();
     const inputHours = useRef();
 
     useEffect(() => {
@@ -100,13 +102,16 @@ export default function Timer() {
 
             if (timerSeconds <= 0) {
                 clearTimeout(timerTick);
-                audio.play();
+                setTimeout(() => {
+                    audio.play();
+                }, 1000);
                 setTimeout(() => {
                     audio.pause();
                     audio.currentTime = 0;
                 }, 5000);
-                setOriginalInput(0);
+                setTimerFinished(true);
                 setTimerState(false);
+                setOriginalInput(0);
             }
 
             return () => {
@@ -135,6 +140,8 @@ export default function Timer() {
         const totalSeconds = seconds + (minutes * 60) + (hours * 60 * 60);
         
         if (totalSeconds <= 0) return setTimerState(false);
+
+        resetButton.current.removeAttribute('disabled');
 
         localStorage.setItem('timerSeconds', seconds);
         localStorage.setItem('timerMinutes', minutes);
@@ -181,8 +188,10 @@ export default function Timer() {
     }
 
     function timerReset() {
+        console.log('reset clicked');
         audio.pause();
         audio.currentTime = 0;
+        setTimerFinished(false);
         setTimerState(false);
         setOriginalInput(0);
         setTimerSeconds(0);
@@ -197,24 +206,36 @@ export default function Timer() {
         return number < 10 ? `0${number}` : number;
     }
 
+    function inputScroll(e) {
+        console.log(e.deltaY);
+        const value = parseInt(e.target.value);
+        if (e.deltaY > 0) {
+            if (!value) return;
+            e.target.value = formatNumber(value - 1);
+        } else {
+            e.target.value = formatNumber(value + 1);
+        }
+    }
+
     return (
         <div className={classes.timerContainer} id="content">
             <div className={classes.timerInputWrapper}>
                 <input 
                     className={classes.timerInput} maxLength="2" id="inputHours" type="text" onBlur={inputChange} ref={inputHours}
-                    onClick={(e) => e.target.select()} defaultValue={formatNumber(localStorage.getItem('timerHours')) ?? '00'}
+                    onClick={(e) => e.target.select()} defaultValue={formatNumber(localStorage.getItem('timerHours')) ?? '00'} onWheel={inputScroll}
                 />
+                <span className={classes.timerInputSeparator}>:</span>
                 <input 
                     className={classes.timerInput} maxLength="2" id="inputMinutes" type="text" onBlur={inputChange} ref={inputMinutes}
-                    onClick={(e) => e.target.select()} defaultValue={formatNumber(localStorage.getItem('timerMinutes')) ?? '00'} 
+                    onClick={(e) => e.target.select()} defaultValue={formatNumber(localStorage.getItem('timerMinutes')) ?? '00'} onWheel={inputScroll}
                 />
+                <span className={classes.timerInputSeparator}>:</span>
                 <input 
                     className={classes.timerInput} maxLength="2" id="inputSeconds" type="text" onBlur={inputChange} ref={inputSeconds}
-                    onClick={(e) => e.target.select()} defaultValue={formatNumber(localStorage.getItem('timerSeconds')) ?? '00'}
+                    onClick={(e) => e.target.select()} defaultValue={formatNumber(localStorage.getItem('timerSeconds')) ?? '00'} onWheel={inputScroll}
                 />
             </div>
             <div className={classes.timerBarOuter}>
-                <p className={classes.timerClock}>{timerSeconds}</p>
                 <div className={classes.timerBarInner}>
                     <div className={classes.timerBar} style={{ width: `${barWidth}%` }}></div>
                 </div>
@@ -229,7 +250,7 @@ export default function Timer() {
                             <span>Pause</span>
                         </button>
                 }
-                <button className={`${classes.buttons} ${classes.resetTimer}`} onClick={timerReset}>
+                <button className={`${classes.buttons} ${classes.resetTimer}`} onClick={timerReset} ref={resetButton} disabled={!timerFinished}>
                     <span>Reset</span>
                 </button>
             </div>
