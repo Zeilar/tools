@@ -15,15 +15,13 @@ export default function Timer() {
             width: '100%',
         },
         timerInput: {
-            'border-radius': '1rem',
-            'text-align': 'center',
-            background: 'none',
             'font-size': '10rem',
+            background: 'none',
             color: 'inherit',
-            height: '8rem',
             width: '11rem',
         },
         timerInputSeparator: {
+            'user-select': 'none',
             'font-size': '10rem',
         },
         timerContainer: {
@@ -223,17 +221,17 @@ export default function Timer() {
         <div className={classes.timerContainer} id="content">
             <div className={classes.timerInputWrapper}>
                 <input 
-                    className={classes.timerInput} maxLength="2" id="inputHours" type="text" onBlur={inputChange} ref={inputHours}
+                    className={classes.timerInput} maxLength="2" id="inputHours" type="text" onBlur={inputChange} ref={inputHours} autoComplete="off"
                     onClick={(e) => e.target.select()} defaultValue={formatNumber(localStorage.getItem('timerHours')) ?? '00'} onWheel={inputScroll}
                 />
                 <span className={classes.timerInputSeparator}>:</span>
                 <input 
-                    className={classes.timerInput} maxLength="2" id="inputMinutes" type="text" onBlur={inputChange} ref={inputMinutes}
+                    className={classes.timerInput} maxLength="2" id="inputMinutes" type="text" onBlur={inputChange} ref={inputMinutes} autoComplete="off"
                     onClick={(e) => e.target.select()} defaultValue={formatNumber(localStorage.getItem('timerMinutes')) ?? '00'} onWheel={inputScroll}
                 />
                 <span className={classes.timerInputSeparator}>:</span>
                 <input 
-                    className={classes.timerInput} maxLength="2" id="inputSeconds" type="text" onBlur={inputChange} ref={inputSeconds}
+                    className={classes.timerInput} maxLength="2" id="inputSeconds" type="text" onBlur={inputChange} ref={inputSeconds} autoComplete="off"
                     onClick={(e) => e.target.select()} defaultValue={formatNumber(localStorage.getItem('timerSeconds')) ?? '00'} onWheel={inputScroll}
                 />
             </div>
