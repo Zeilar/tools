@@ -33,7 +33,7 @@ export default function Timer() {
         buttonsWrapper: {
             'justify-content': 'center',
             'flex-direction': 'row',
-            'margin-top': '2rem',
+            'margin-top': '1.5rem',
             display: 'flex',
         },
         buttons: {
