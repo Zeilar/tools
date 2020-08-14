@@ -121,9 +121,9 @@ export default function Timer() {
         let minutes = parseInt(minutesInput.value);
         let hours = parseInt(hoursInput.value);
 
-        if (!seconds) seconds = 0;
-        if (!minutes) minutes = 0;
-        if (!hours) hours = 0;
+        if (!seconds || isNaN(seconds)) seconds = 0;
+        if (!minutes || isNaN(minutes)) minutes = 0;
+        if (!hours || isNaN(hours)) hours = 0;
 
         secondsInput.value = formatNumber(seconds);
         minutesInput.value = formatNumber(minutes);
