@@ -45,12 +45,6 @@ export default function Timer() {
             color: 'white',
             width: '5rem',
         },
-        startTimer: {
-            
-        },
-        pauseTimer: {
-            
-        },
         resetTimer: {
             background: 'red',
         },
