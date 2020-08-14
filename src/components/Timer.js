@@ -207,7 +207,6 @@ export default function Timer() {
     }
 
     function inputScroll(e) {
-        console.log(e.deltaY);
         const value = parseInt(e.target.value);
         if (e.deltaY > 0) {
             if (!value) return;
