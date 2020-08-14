@@ -207,8 +207,6 @@ export default function Timer() {
         return number < 10 ? `0${number}` : number;
     }
 
-    
-
     function inputScroll(e) {
         const value = parseInt(e.target.value);
         if (isNaN(value)) return;
