@@ -91,7 +91,7 @@ export default function ShadowGenerator() {
             </div>
             <div className={classes.shadowContainer} style={{ boxShadow: boxShadow }}>
                 <p className={classes.shadowText}>
-                    {`box-shadow: ${boxShadow}`}
+                    {`box-shadow: ${boxShadow};`}
                 </p>
             </div>
         </div>
