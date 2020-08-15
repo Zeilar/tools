@@ -215,7 +215,7 @@ export default function Timer() {
             if (value <= 0) return;
             e.target.value = formatNumber(value - 1);
         } else {
-            if (value >= 60) return;
+            if (value >= 59) return;
             e.target.value = formatNumber(value + 1);
         }
         playable();
