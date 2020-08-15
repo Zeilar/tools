@@ -225,17 +225,17 @@ export default function Timer() {
         <div className={classes.timerContainer} id="content">
             <div className={classes.timerInputWrapper}>
                 <input 
-                    className={classes.timerInput} maxLength="2" id="inputHours" type="text" onBlur={inputChange} ref={inputHours} autoComplete="off"
+                    className={classes.timerInput} maxLength="2" id="inputHours" type="text" onBlur={inputChange} ref={inputHours} autoComplete="off" title="Timer hours"
                     onClick={(e) => e.target.select()} defaultValue={formatNumber(localStorage.getItem('timerHours')) ?? '00'} onWheel={inputScroll}
                 />
                 <span className={classes.timerInputSeparator}>:</span>
                 <input 
-                    className={classes.timerInput} maxLength="2" id="inputMinutes" type="text" onBlur={inputChange} ref={inputMinutes} autoComplete="off"
+                    className={classes.timerInput} maxLength="2" id="inputMinutes" type="text" onBlur={inputChange} ref={inputMinutes} autoComplete="off" title="Timer minutes"
                     onClick={(e) => e.target.select()} defaultValue={formatNumber(localStorage.getItem('timerMinutes')) ?? '00'} onWheel={inputScroll}
                 />
                 <span className={classes.timerInputSeparator}>:</span>
                 <input 
-                    className={classes.timerInput} maxLength="2" id="inputSeconds" type="text" onBlur={inputChange} ref={inputSeconds} autoComplete="off"
+                    className={classes.timerInput} maxLength="2" id="inputSeconds" type="text" onBlur={inputChange} ref={inputSeconds} autoComplete="off" title="Timer seconds"
                     onClick={(e) => e.target.select()} defaultValue={formatNumber(localStorage.getItem('timerSeconds')) ?? '00'} onWheel={inputScroll}
                 />
             </div>
@@ -247,14 +247,14 @@ export default function Timer() {
             <div className={classes.buttonsWrapper}>
                 { 
                     !timerActive
-                        ? <button className={`${classes.buttons} ${classes.startTimer}`} onClick={timerStart} disabled={!timerPlayable}>
+                        ? <button className={`${classes.buttons} ${classes.startTimer}`} onClick={timerStart} title="Start timer" disabled={!timerPlayable || timerResettable}>
                             <span>Start</span>
                         </button>
-                        : <button className={`${classes.buttons} ${classes.pauseTimer}`} onClick={() => setTimerState(false)}>
+                        : <button className={`${classes.buttons} ${classes.pauseTimer}`} onClick={() => setTimerState(false)} title="Pause timer">
                             <span>Pause</span>
                         </button>
                 }
-                <button className={`${classes.buttons} ${classes.resetTimer}`} onClick={timerReset} ref={resetButton} disabled={!timerResettable}>
+                <button className={`${classes.buttons} ${classes.resetTimer}`} onClick={timerReset} ref={resetButton} disabled={!timerResettable} title="Reset timer">
                     <span>Reset</span>
                 </button>
             </div>
