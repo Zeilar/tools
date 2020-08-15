@@ -22,7 +22,7 @@ export default function Navbar(props) {
 
         },
         navLink: {
-            transition: 'color 0.15s ease-in-out, transform 0.15s ease-in-out, background 0.15s ease-in-out',
+            transition: 'color 0.15s ease-in-out, background 0.15s ease-in-out',
             padding: '1rem 1.5rem',
             'font-size': '2rem',
             background: 'none',
@@ -35,7 +35,6 @@ export default function Navbar(props) {
             },
             '&.active': {
                 background: 'rgb(20, 20, 20)',
-                transform: 'scale(1.05)',
                 color: 'dodgerblue',
             },
         },
