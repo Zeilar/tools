@@ -69,7 +69,7 @@ export default function Timer() {
     });
     const classes = styles();
 
-    const [timerFinished, setTimerFinished] = useState(false);
+    const [timerResettable, setTimerResettable] = useState(false);
     const [originalInput, setOriginalInput] = useState(0);
     const [timerActive, setTimerState] = useState(false);
     const [timerSeconds, setTimerSeconds] = useState(0);
@@ -101,7 +101,6 @@ export default function Timer() {
                     audio.pause();
                     audio.currentTime = 0;
                 }, 5000);
-                setTimerFinished(true);
                 setTimerState(false);
                 setOriginalInput(0);
             }
@@ -133,7 +132,7 @@ export default function Timer() {
         
         if (totalSeconds <= 0) return setTimerState(false);
 
-        resetButton.current.removeAttribute('disabled');
+        setTimerResettable(true);
 
         localStorage.setItem('timerSeconds', seconds);
         localStorage.setItem('timerMinutes', minutes);
@@ -184,7 +183,7 @@ export default function Timer() {
         console.log('reset clicked');
         audio.pause();
         audio.currentTime = 0;
-        setTimerFinished(false);
+        setTimerResettable(false);
         setTimerState(false);
         setOriginalInput(0);
         setTimerSeconds(0);
@@ -245,7 +244,7 @@ export default function Timer() {
                             <span>Pause</span>
                         </button>
                 }
-                <button className={`${classes.buttons} ${classes.resetTimer}`} onClick={timerReset} ref={resetButton} disabled={!timerFinished}>
+                <button className={`${classes.buttons} ${classes.resetTimer}`} onClick={timerReset} ref={resetButton} disabled={!timerResettable}>
                     <span>Reset</span>
                 </button>
             </div>
