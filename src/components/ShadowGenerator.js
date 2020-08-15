@@ -51,7 +51,7 @@ export default function ShadowGenerator() {
     const [spread, setSpread] = useState(5);
     const [blur, setBlur] = useState(25);
 
-    const boxShadow = `${offsetX}px ${offsetY}px ${blur}px ${spread}px ${inset ? 'inset' : ''} rgba(0, 0, 0, ${opacity})`;
+    const boxShadow = `${offsetX}px ${offsetY}px ${blur}px ${spread}px ${inset ? 'inset' : ''} rgba(0, 0, 0, ${opacity / 100})`;
 
     return (
         <div className={classes.shadowGenerator} id="content">
