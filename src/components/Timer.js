@@ -225,17 +225,17 @@ export default function Timer() {
         <div className={classes.timerContainer} id="content">
             <div className={classes.timerInputWrapper}>
                 <input 
-                    className={classes.timerInput} maxLength="2" id="inputHours" type="text" onBlur={inputChange} ref={inputHours} autoComplete="off" title="Timer hours"
+                    className={classes.timerInput} maxLength="2" type="text" onBlur={inputChange} ref={inputHours} autoComplete="off" title="Timer hours"
                     onClick={(e) => e.target.select()} defaultValue={formatNumber(localStorage.getItem('timerHours')) ?? '00'} onWheel={inputScroll}
                 />
                 <span className={classes.timerInputSeparator}>:</span>
                 <input 
-                    className={classes.timerInput} maxLength="2" id="inputMinutes" type="text" onBlur={inputChange} ref={inputMinutes} autoComplete="off" title="Timer minutes"
+                    className={classes.timerInput} maxLength="2" type="text" onBlur={inputChange} ref={inputMinutes} autoComplete="off" title="Timer minutes"
                     onClick={(e) => e.target.select()} defaultValue={formatNumber(localStorage.getItem('timerMinutes')) ?? '00'} onWheel={inputScroll}
                 />
                 <span className={classes.timerInputSeparator}>:</span>
                 <input 
-                    className={classes.timerInput} maxLength="2" id="inputSeconds" type="text" onBlur={inputChange} ref={inputSeconds} autoComplete="off" title="Timer seconds"
+                    className={classes.timerInput} maxLength="2" type="text" onBlur={inputChange} ref={inputSeconds} autoComplete="off" title="Timer seconds"
                     onClick={(e) => e.target.select()} defaultValue={formatNumber(localStorage.getItem('timerSeconds')) ?? '00'} onWheel={inputScroll}
                 />
             </div>
