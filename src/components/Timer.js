@@ -237,7 +237,7 @@ export default function Timer() {
             <div className={classes.buttonsWrapper}>
                 { 
                     !timerActive
-                        ? <button className={`${classes.buttons} ${classes.startTimer}`} onClick={timerStart}>
+                        ? <button className={`${classes.buttons} ${classes.startTimer}`} onClick={timerStart} disabled={timerResettable}>
                             <span>Start</span>
                         </button>
                         : <button className={`${classes.buttons} ${classes.pauseTimer}`} onClick={timerPause}>
