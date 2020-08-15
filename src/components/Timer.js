@@ -180,7 +180,6 @@ export default function Timer() {
     }
 
     function timerReset() {
-        console.log('reset clicked');
         audio.pause();
         audio.currentTime = 0;
         setTimerResettable(false);
