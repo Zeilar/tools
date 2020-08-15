@@ -19,6 +19,12 @@ export default function Timer() {
             background: 'none',
             color: 'inherit',
             width: '11rem',
+            '&::-webkit-outer-spin-button': {
+                appearance: 'none',
+            },
+            '&::-webkit-inner-spin-button': {
+                appearance: 'none',
+            },
         },
         timerInputSeparator: {
             'user-select': 'none',
@@ -212,10 +218,10 @@ export default function Timer() {
         const value = parseInt(e.target.value);
         if (isNaN(value)) return;
         if (e.deltaY > 0) {
-            if (value <= 0) return;
+            if (value <= parseInt(e.target.getAttribute('min'))) return;
             e.target.value = formatNumber(value - 1);
         } else {
-            if (value >= 59) return;
+            if (value >= parseInt(e.target.getAttribute('max'))) return;
             e.target.value = formatNumber(value + 1);
         }
         playable();
@@ -225,17 +231,17 @@ export default function Timer() {
         <div className={classes.timerContainer} id="content">
             <div className={classes.timerInputWrapper}>
                 <input 
-                    className={classes.timerInput} maxLength="2" type="text" onBlur={inputChange} ref={inputHours} autoComplete="off" title="Timer hours"
+                    className={classes.timerInput} min="0" max="59" type="number" onBlur={inputChange} ref={inputHours} autoComplete="off" title="Timer hours"
                     onClick={(e) => e.target.select()} defaultValue={formatNumber(localStorage.getItem('timerHours')) ?? '00'} onWheel={inputScroll}
                 />
                 <span className={classes.timerInputSeparator}>:</span>
                 <input 
-                    className={classes.timerInput} maxLength="2" type="text" onBlur={inputChange} ref={inputMinutes} autoComplete="off" title="Timer minutes"
+                    className={classes.timerInput} min="0" max="59" type="number" onBlur={inputChange} ref={inputMinutes} autoComplete="off" title="Timer minutes"
                     onClick={(e) => e.target.select()} defaultValue={formatNumber(localStorage.getItem('timerMinutes')) ?? '00'} onWheel={inputScroll}
                 />
                 <span className={classes.timerInputSeparator}>:</span>
                 <input 
-                    className={classes.timerInput} maxLength="2" type="text" onBlur={inputChange} ref={inputSeconds} autoComplete="off" title="Timer seconds"
+                    className={classes.timerInput} min="0" max="59" type="number" onBlur={inputChange} ref={inputSeconds} autoComplete="off" title="Timer seconds"
                     onClick={(e) => e.target.select()} defaultValue={formatNumber(localStorage.getItem('timerSeconds')) ?? '00'} onWheel={inputScroll}
                 />
             </div>

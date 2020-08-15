@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import ShadowGenerator from './ShadowGenerator/ShadowGenerator';
 import { lightTheme, darkTheme } from "../styles/Themes";
 import { GlobalStyles } from "../styles/GlobalStyles";
 import { ThemeProvider } from "styled-components";
-import ShadowGenerator from './ShadowGenerator';
 import React, { useState } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
