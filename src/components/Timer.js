@@ -70,6 +70,7 @@ export default function Timer() {
     const classes = styles();
 
     const [timerResettable, setTimerResettable] = useState(false);
+    const [timerPlayable, setTimerPlayable] = useState(false);
     const [originalInput, setOriginalInput] = useState(0);
     const [timerActive, setTimerState] = useState(false);
     const [timerSeconds, setTimerSeconds] = useState(0);
@@ -90,6 +91,7 @@ export default function Timer() {
             const timerTick = setTimeout(() => {       
                 setTimerSeconds(timerSeconds - 1);
                 setBarWidth(barWidth - (100 / originalInput));
+                playable();
             }, 1000);
 
             if (timerSeconds <= 0) {
@@ -109,7 +111,7 @@ export default function Timer() {
                 clearTimeout(timerTick);
             }
         }
-    }, [timerSeconds, timerActive, barWidth]);
+    }, [timerSeconds, timerActive, barWidth, inputSeconds, inputMinutes, inputHours]);
 
     function timerStart() {
         const secondsInput = inputSeconds.current;
@@ -132,7 +134,8 @@ export default function Timer() {
         
         if (totalSeconds <= 0) return setTimerState(false);
 
-        setTimerResettable(true);
+        audio.pause();
+        audio.currentTime = 0;
 
         localStorage.setItem('timerSeconds', seconds);
         localStorage.setItem('timerMinutes', minutes);
@@ -140,7 +143,16 @@ export default function Timer() {
 
         setOriginalInput(totalSeconds);
         setTimerSeconds(totalSeconds);
+        setTimerResettable(true);
         setTimerState(true);  
+    }
+
+    function playable() {
+        if (inputSeconds.current.value === '00' && inputMinutes.current.value === '00' && inputHours.current.value === '00') {
+            setTimerPlayable(false);
+        } else {
+            setTimerPlayable(true);
+        }
     }
 
     function timerFormat() {
@@ -172,11 +184,13 @@ export default function Timer() {
 
     function formatInput(e) {
         const value = parseInt(e.target.value);
+        if (isNaN(value)) return e.target.value = '00';
         if (value < 10) e.target.value = `0${value}`;
     }
 
     function inputChange(e) {
         formatInput(e);
+        playable();
     }
 
     function timerReset() {
@@ -187,10 +201,6 @@ export default function Timer() {
         setOriginalInput(0);
         setTimerSeconds(0);
         setBarWidth(100);
-    }
-
-    function timerPause() {
-        setTimerState(false);
     }
 
     function formatNumber(number) {
@@ -208,6 +218,7 @@ export default function Timer() {
             if (value >= 60) return;
             e.target.value = formatNumber(value + 1);
         }
+        playable();
     }
 
     return (
@@ -236,10 +247,10 @@ export default function Timer() {
             <div className={classes.buttonsWrapper}>
                 { 
                     !timerActive
-                        ? <button className={`${classes.buttons} ${classes.startTimer}`} onClick={timerStart} disabled={timerResettable}>
+                        ? <button className={`${classes.buttons} ${classes.startTimer}`} onClick={timerStart} disabled={!timerPlayable}>
                             <span>Start</span>
                         </button>
-                        : <button className={`${classes.buttons} ${classes.pauseTimer}`} onClick={timerPause}>
+                        : <button className={`${classes.buttons} ${classes.pauseTimer}`} onClick={() => setTimerState(false)}>
                             <span>Pause</span>
                         </button>
                 }
