@@ -9,10 +9,7 @@ export default function Timer() {
             'margin-left': '1rem',
         },
         timerInputWrapper: {
-            'justify-content': 'space-between',
-            'align-items': 'baseline',
-            display: 'flex',
-            width: '100%',
+            
         },
         timerInput: {
             'font-size': '10rem',
@@ -31,10 +28,7 @@ export default function Timer() {
             'font-size': '10rem',
         },
         timerContainer: {
-            'flex-direction': 'column',
-            'align-items': 'center',
             margin: '0 auto',
-            display: 'flex',
         },
         buttonsWrapper: {
             'justify-content': 'center',
