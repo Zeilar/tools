@@ -18,7 +18,7 @@ export default function Timer() {
             'font-size': '10rem',
             background: 'none',
             color: 'inherit',
-            width: '11rem',
+            width: '12rem',
             '&::-webkit-outer-spin-button': {
                 appearance: 'none',
             },
