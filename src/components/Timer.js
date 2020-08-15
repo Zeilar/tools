@@ -17,10 +17,7 @@ export default function Timer() {
             background: 'none',
             color: 'inherit',
             width: '12rem',
-            '&::-webkit-outer-spin-button': {
-                appearance: 'none',
-            },
-            '&::-webkit-inner-spin-button': {
+            '&::-webkit-outer-spin-button, &::-webkit-inner-spin-button': {
                 appearance: 'none',
             },
         },
