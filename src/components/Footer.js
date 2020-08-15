@@ -6,7 +6,7 @@ export default function Footer() {
         footer: {
             background: 'rgb(10, 10, 10)',
             'margin-top': 'auto',
-            padding: '2%',
+            padding: '2rem',
         },
         footerText: {
             'text-align': 'center',
