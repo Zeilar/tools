@@ -32,7 +32,6 @@ export default function Timer() {
         },
         buttonsWrapper: {
             'justify-content': 'center',
-            'flex-direction': 'row',
             'margin-top': '1.5rem',
             display: 'flex',
         },
@@ -49,22 +48,16 @@ export default function Timer() {
             background: 'red',
         },
         timerBarOuter: {
-            'flex-direction': 'column',
-            'align-items': 'center',
-            width: 'fit-content',
-            display: 'flex',
-            width: '100%',
+            
         },
         timerBarInner: {
             border: '1px solid black',
             height: '2.5vh',
-            width: '100%',
         },
         timerBar: {
             transition: 'width 1s linear',
             background: 'dodgerblue',
             height: '100%',
-            width: '100%',
         },
     });
     const classes = styles();
