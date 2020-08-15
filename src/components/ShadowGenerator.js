@@ -24,7 +24,11 @@ export default function ShadowGenerator() {
             width: '60vh',
         },
         shadowText: {
+            'text-align': 'center',
+            'font-size': '1.5rem',
+            background: 'none',
             color: 'black',
+            width: '100%',
         },
         shadowInputs: {
             'flex-direction': 'column',
@@ -90,9 +94,7 @@ export default function ShadowGenerator() {
                 </div>
             </div>
             <div className={classes.shadowContainer} style={{ boxShadow: boxShadow }}>
-                <p className={classes.shadowText}>
-                    {`box-shadow: ${boxShadow};`}
-                </p>
+                <input readOnly className={classes.shadowText} onClick={(e) => e.target.select()} value={`box-shadow: ${boxShadow};`} />
             </div>
         </div>
     );
