@@ -95,9 +95,10 @@ export default function ShadowGeneratorInput(props) {
             e.target.value = value + 1;
             props.setter(value);
         }
+        inputValueText(e);
     }
 
-    function inputChange(e) {
+    function inputValueText(e) {
         props.setter(e.target.value);
         if (!showInputValue) {
             setShowInputValue(true);
@@ -114,7 +115,7 @@ export default function ShadowGeneratorInput(props) {
             </div>
             {showInputValue ? <span className={classes.inputTextValue}>{input.current.value}</span> : ''}
             <input 
-                className={classes.inputSlider} onChange={inputChange} type="range" onWheel={inputScroll}
+                className={classes.inputSlider} onChange={inputValueText} type="range" onWheel={inputScroll}
                 min={props.min} max={props.max} defaultValue={props.default} ref={input}
             />
             <div className={classes.resetButtonWrapper}>
