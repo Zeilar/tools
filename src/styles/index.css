@@ -63,6 +63,13 @@ button {
     position: relative;
 }
 
+button > span {
+    transform: translate(-50%, -50%);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}
+
 button[disabled] {
     opacity: 0.25;
 }
@@ -76,6 +83,7 @@ button:hover {
 }
 
 button:not([disabled]):hover::before {
+    animation: fade-in 0.15s ease-in-out forwards;
     background: rgba(0, 0, 0, 0.5);
     border-radius: inherit;
     position: absolute;
