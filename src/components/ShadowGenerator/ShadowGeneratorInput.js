@@ -58,6 +58,7 @@ export default function ShadowGeneratorInput(props) {
             position: 'absolute',
             padding: '0.5rem',
             width: '3.5rem',
+            color: 'white',
             top: '-1.5rem',
             left: '50%',
         },
