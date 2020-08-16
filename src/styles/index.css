@@ -75,7 +75,7 @@ button:hover {
     cursor: pointer;
 }
 
-/* button:not([disabled]):hover::before {
+button:not([disabled]):hover::before {
     background: rgba(0, 0, 0, 0.5);
     border-radius: inherit;
     position: absolute;
@@ -84,4 +84,4 @@ button:hover {
     width: 100%;
     left: 0;
     top: 0;
-} */
+}
