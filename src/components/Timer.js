@@ -35,7 +35,7 @@ export default function Timer() {
             display: 'flex',
         },
         buttons: {
-            'box-shadow': '0px 0px 5px 0px rgba(0, 0, 0, 1)',
+            'box-shadow': '0 0 5px 0 rgba(0, 0, 0, 1)',
             background: 'dodgerblue',
             'border-radius': '50%',
             'font-size': '1.25rem',
@@ -48,7 +48,7 @@ export default function Timer() {
             background: 'red',
         },
         timerBarOuter: {
-            'box-shadow': '0px 0px 5px 0px rgba(0, 0, 0, 1)',
+            'box-shadow': '0 0 5px 0 rgba(0, 0, 0, 1)',
         },
         timerBarInner: {
             border: '1px solid black',
