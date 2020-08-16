@@ -82,7 +82,7 @@ export default function ShadowGeneratorInput(props) {
         setTimeout(() => {
             icon.classList.remove('spin');
         }, 500);
-        inputValueText(e);
+        showInputBox(e);
     }
 
     function inputScroll(e) {
@@ -97,10 +97,10 @@ export default function ShadowGeneratorInput(props) {
             element.value = value + 1;
             props.setter(value);
         }
-        inputValueText(e);
+        showInputBox(e);
     }
 
-    function inputValueText(e) {
+    function showInputBox(e) {
         props.setter(e.target.value);
         if (!showInputValue) {
             setShowInputValue(true);
@@ -117,7 +117,7 @@ export default function ShadowGeneratorInput(props) {
             </div>
             {showInputValue ? <span className={classes.inputTextValue}>{input.current.value}</span> : ''}
             <input 
-                className={classes.inputSlider} onChange={inputValueText} type="range" onWheel={inputScroll}
+                className={classes.inputSlider} onChange={showInputBox} type="range" onWheel={inputScroll}
                 min={props.min} max={props.max} defaultValue={props.default} ref={input}
             />
             <div className={classes.resetButtonWrapper}>
