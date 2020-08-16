@@ -90,7 +90,7 @@ export default function ShadowGenerator() {
                 <Input inset={inset} text="Opacity" setter={setOpacity} min="0" max="100" default="50" />
                 <div className={classes.inputInsetWrapper}>
                     <span className={classes.inputInsetLabel} onClick={() => setInset(!inset)}>Inset</span>
-                    <div className={`${classes.inputInset} ${inset ? 'checked' : ''}`} onClick={() => setInset(!inset)} id="inset">
+                    <div className={`${classes.inputInset} ${inset ? 'checked' : ''}`} onClick={() => setInset(!inset)}>
                         {inset ? <FontAwesomeIcon className={classes.inputInsetCheck} icon={faCheck} /> : ''}
                     </div>
                 </div>
