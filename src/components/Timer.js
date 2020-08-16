@@ -74,31 +74,31 @@ export default function Timer() {
     const inputHours = useRef();
 
     useEffect(() => {
-        playable();
-
         if (barWidth <= 0) setBarWidth(0); 
 
         if (timerActive) {            
             inputSeconds.current.value = formatNumber(Math.floor(timerFormat().seconds));
             inputMinutes.current.value = formatNumber(Math.floor(timerFormat().minutes));
             inputHours.current.value = formatNumber(Math.round(timerFormat().hours));
+
             const timerTick = setTimeout(() => {       
                 setTimerSeconds(timerSeconds - 1);
                 barWidth - (100 / originalInput) > 0 ? setBarWidth((barWidth - (100 / originalInput))) : setBarWidth(0);
-                playable();
             }, 1000);
 
             if (timerSeconds <= 0) {
                 clearTimeout(timerTick);
+                setTimerState(false);
                 setTimeout(() => {
                     audio.play();
+                    setTimerResettable(false);
+                    setOriginalInput(0);
+                    setBarWidth(100);
                 }, 1000);
                 setTimeout(() => {
                     audio.pause();
                     audio.currentTime = 0;
                 }, 5000);
-                setTimerState(false);
-                setOriginalInput(0);
             }
 
             return () => {
@@ -141,14 +141,6 @@ export default function Timer() {
         setTimerState(true);  
     }
 
-    function playable() {
-        if (inputSeconds.current.value === '00' && inputMinutes.current.value === '00' && inputHours.current.value === '00') {
-            setTimerPlayable(false);
-        } else {
-            setTimerPlayable(true);
-        }
-    }
-
     function timerFormat() {
         let seconds = 0;
         let minutes = 0;
@@ -184,7 +176,6 @@ export default function Timer() {
 
     function inputChange(e) {
         formatInput(e);
-        playable();
     }
 
     function timerReset() {
@@ -212,7 +203,6 @@ export default function Timer() {
             if (value >= parseInt(e.target.getAttribute('max'))) return;
             e.target.value = formatNumber(value + 1);
         }
-        playable();
     }
 
     return (
@@ -241,7 +231,7 @@ export default function Timer() {
             <div className={classes.buttonsWrapper}>
                 { 
                     !timerActive
-                        ? <button className={`${classes.buttons} ${classes.startTimer}`} onClick={timerStart} title="Start timer" disabled={!timerPlayable || timerResettable}>
+                        ? <button className={`${classes.buttons} ${classes.startTimer}`} onClick={timerStart} title="Start timer">
                             <span>Start</span>
                         </button>
                         : <button className={`${classes.buttons} ${classes.pauseTimer}`} onClick={() => setTimerState(false)} title="Pause timer">
