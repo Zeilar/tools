@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUndo } from '@fortawesome/free-solid-svg-icons';
 import { createUseStyles } from 'react-jss';
 import React, { useRef } from 'react';
 
@@ -32,12 +34,15 @@ export default function ShadowGeneratorInput(props) {
             border: '1px solid rgb(175, 175, 175)',
             'border-radius': '0.5rem',
             background: 'red',
-            padding: '0.5rem',
-            flex: '1',
+            height: '2rem',
+            width: '2rem',
             color: 'white',
         },
+        resetButtonIcon: {
+            
+        },
         inputText: {
-            flex: '2',
+            width: '15%',
         },
     });
     const classes = styles();
@@ -68,7 +73,9 @@ export default function ShadowGeneratorInput(props) {
                 className={classes.inputSlider} onChange={(e) => props.setter(e.target.value)} ref={input}
                 type="range" min={props.min} max={props.max} defaultValue={props.default} onWheel={inputScroll}
             />
-            <button className={classes.resetButton} onClick={reset}>Reset</button>
+            <button className={classes.resetButton} onClick={reset}>
+                <FontAwesomeIcon className={classes.resetButtonIcon} icon={faUndo} />
+            </button>
         </div>
     );
 }
