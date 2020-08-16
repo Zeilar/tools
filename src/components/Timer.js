@@ -189,6 +189,7 @@ export default function Timer() {
     }
 
     function formatNumber(number) {
+        number = parseInt(number);
         if (isNaN(number)) return '00';
         return number < 10 ? `0${number}` : number;
     }
