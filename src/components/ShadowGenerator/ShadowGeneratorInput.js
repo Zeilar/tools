@@ -31,15 +31,14 @@ export default function ShadowGeneratorInput(props) {
             height: '2rem',
         },
         resetButton: {
-            border: '1px solid rgb(175, 175, 175)',
             'border-radius': '0.5rem',
             background: 'red',
+            color: 'white',
             height: '2rem',
             width: '2rem',
-            color: 'white',
         },
         resetButtonIcon: {
-            
+
         },
         inputText: {
             width: '15%',

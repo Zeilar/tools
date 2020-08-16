@@ -1,5 +1,5 @@
+import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import React, { useState, useRef } from 'react';
 import { createUseStyles } from 'react-jss';
 import Input from './ShadowGeneratorInput';
@@ -45,7 +45,6 @@ export default function ShadowGenerator() {
             border: '1px solid rgb(175, 175, 175)',
             'justify-content': 'center',
             'border-radius': '0.25rem',
-            'padding-top': '0.25rem',
             'align-items': 'center',
             'user-select': 'none',
             cursor: 'pointer',
@@ -84,11 +83,11 @@ export default function ShadowGenerator() {
     return (
         <div className={classes.shadowGenerator} id="content">
             <div className={classes.shadowInputs}>
-                <Input text="Offset X" setter={setOffsetX} min="-25" max="25" default="0" />
-                <Input text="Offset Y" setter={setOffsetY} min="-25" max="25" default="0" />
-                <Input text="Blur" setter={setBlur} min="0" max="50" default="25" />
-                <Input text="Spread" setter={setSpread} min="0" max="10" default="5" />
-                <Input text="Opacity" setter={setOpacity} min="0" max="100" default="50" />
+                <Input inset={inset} text="Offset X" setter={setOffsetX} min="-25" max="25" default="0" />
+                <Input inset={inset} text="Offset Y" setter={setOffsetY} min="-25" max="25" default="0" />
+                <Input inset={inset} text="Blur" setter={setBlur} min="0" max="50" default="25" />
+                <Input inset={inset} text="Spread" setter={setSpread} min="0" max="10" default="5" />
+                <Input inset={inset} text="Opacity" setter={setOpacity} min="0" max="100" default="50" />
                 <div className={classes.inputInsetWrapper}>
                     <span className={classes.inputInsetLabel} onClick={() => setInset(!inset)}>Inset</span>
                     <div className={`${classes.inputInset} ${inset ? 'checked' : ''}`} onClick={() => setInset(!inset)} id="inset">
