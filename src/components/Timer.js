@@ -73,13 +73,14 @@ export default function Timer() {
     const inputHours = useRef();
 
     useEffect(() => {
+        playable();
+
         if (barWidth <= 0) setBarWidth(0); 
 
-        inputSeconds.current.value = formatNumber(Math.floor(timerFormat().seconds));
-        inputMinutes.current.value = formatNumber(Math.floor(timerFormat().minutes));
-        inputHours.current.value = formatNumber(Math.round(timerFormat().hours));
-
         if (timerActive) {            
+            inputSeconds.current.value = formatNumber(Math.floor(timerFormat().seconds));
+            inputMinutes.current.value = formatNumber(Math.floor(timerFormat().minutes));
+            inputHours.current.value = formatNumber(Math.round(timerFormat().hours));
             const timerTick = setTimeout(() => {       
                 setTimerSeconds(timerSeconds - 1);
                 setBarWidth(barWidth - (100 / originalInput));
@@ -240,7 +241,7 @@ export default function Timer() {
             <div className={classes.buttonsWrapper}>
                 { 
                     !timerActive
-                        ? <button className={`${classes.buttons} ${classes.startTimer}`} onClick={timerStart} title="Start timer" disabled={!timerPlayable}>
+                        ? <button className={`${classes.buttons} ${classes.startTimer}`} onClick={timerStart} title="Start timer" disabled={!timerPlayable || timerResettable}>
                             <span>Start</span>
                         </button>
                         : <button className={`${classes.buttons} ${classes.pauseTimer}`} onClick={() => setTimerState(false)} title="Pause timer">
