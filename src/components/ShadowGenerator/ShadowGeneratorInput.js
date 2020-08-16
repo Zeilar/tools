@@ -75,24 +75,26 @@ export default function ShadowGeneratorInput(props) {
     const resetIcon = useRef();
     const input = useRef();
 
-    function reset() {
+    function reset(e) {
         input.current.value = props.default;
-        resetIcon.current.classList.add('spin');
+        const icon = resetIcon.current;
+        icon.classList.add('spin');
         setTimeout(() => {
-            resetIcon.current.classList.remove('spin');
+            icon.classList.remove('spin');
         }, 500);
-        props.setter(props.default);
+        inputValueText(e);
     }
 
     function inputScroll(e) {
-        const value = parseInt(e.target.value);
+        const element = e.target;
+        const value = parseInt(element.value);
         if (e.deltaY > 0) {
-            if (value <= parseInt(e.target.getAttribute('min'))) return;
-            e.target.value = value - 1;
+            if (value <= parseInt(element.getAttribute('min'))) return;
+            element.value = value - 1;
             props.setter(value);
         } else {
-            if (value >= parseInt(e.target.getAttribute('max'))) return;
-            e.target.value = value + 1;
+            if (value >= parseInt(element.getAttribute('max'))) return;
+            element.value = value + 1;
             props.setter(value);
         }
         inputValueText(e);
