@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUndo } from '@fortawesome/free-solid-svg-icons';
+import React, { useRef, useState } from 'react';
 import { createUseStyles } from 'react-jss';
-import React, { useRef } from 'react';
 
 export default function ShadowGeneratorInput(props) {
     const styles = createUseStyles({
@@ -22,33 +22,65 @@ export default function ShadowGeneratorInput(props) {
                 width: '1.5rem',
             },
         },
-        inputsWrapper: {
+        inputWrapper: {
             'justify-content': 'space-between',
             'flex-direction': 'row',
             'align-items': 'center',
-            margin: '1rem 0',
+            'position': 'relative',
+            margin: '1.5rem 0',
             display: 'flex',
             height: '2rem',
         },
         resetButton: {
             'border-radius': '0.5rem',
             background: 'red',
-            color: 'white',
             height: '2rem',
+            color: 'white',
             width: '2rem',
         },
         resetButtonIcon: {
-
+            transform: 'rotate(0deg)',
+            '&.spin': {
+                transition: 'transform 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28)',
+                transform: 'rotate(-360deg)',
+            },
         },
         inputText: {
-            width: '15%',
+            width: '10%',
+        },
+        inputTextValue: {
+            border: '1px solid rgb(50, 50, 50)',
+            transform: 'translate(-50%, -50%)',
+            background: 'rgb(15, 15, 15)',
+            'border-radius': '0.5rem',
+            'text-align': 'center',
+            'user-select': 'none',
+            position: 'absolute',
+            padding: '0.5rem',
+            top: '-1.5rem',
+            width: '3rem',
+            left: '50%',
+        },
+        resetButtonWrapper: {
+            width: '10%',
+        },
+        inputTextWrapper: {
+            width: '10%',
         },
     });
     const classes = styles();
+
+    const [showInputValue, setShowInputValue] = useState();
+    const resetButton = useRef();
+    const resetIcon = useRef();
     const input = useRef();
 
     function reset() {
         input.current.value = props.default;
+        resetIcon.current.classList.add('spin');
+        setTimeout(() => {
+            resetIcon.current.classList.remove('spin');
+        }, 500);
         props.setter(props.default);
     }
 
@@ -65,16 +97,31 @@ export default function ShadowGeneratorInput(props) {
         }
     }
 
+    function inputChange(e) {
+        props.setter(e.target.value);
+        if (!showInputValue) {
+            setShowInputValue(true);
+            setTimeout(() => {
+                setShowInputValue(false);
+            }, 2000);
+        }
+    }
+
     return (
-        <div className={classes.inputsWrapper}>
-            <span className={classes.inputText}>{props.text}</span>
+        <div className={classes.inputWrapper}>
+            <div className={classes.inputTextWrapper}>
+                <span className={classes.inputText}>{props.text}</span>
+            </div>
+            {showInputValue ? <span className={classes.inputTextValue}>{input.current.value}</span> : ''}
             <input 
-                className={classes.inputSlider} onChange={(e) => props.setter(e.target.value)} ref={input}
-                type="range" min={props.min} max={props.max} defaultValue={props.default} onWheel={inputScroll}
+                className={classes.inputSlider} onChange={inputChange} type="range" onWheel={inputScroll}
+                min={props.min} max={props.max} defaultValue={props.default} ref={input}
             />
-            <button className={classes.resetButton} onClick={reset}>
-                <FontAwesomeIcon className={classes.resetButtonIcon} icon={faUndo} />
-            </button>
+            <div className={classes.resetButtonWrapper}>
+                <button className={classes.resetButton} onClick={reset} ref={resetButton}>
+                    <FontAwesomeIcon className={classes.resetButtonIcon} icon={faUndo} forwardedRef={resetIcon} />
+                </button>
+            </div>
         </div>
     );
 }

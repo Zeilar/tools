@@ -58,7 +58,6 @@ export default function ShadowGenerator() {
         },
         inputInsetLabel: {
             'padding-right': '0.5rem',
-            'margin-left': '7.5%',
             'user-select': 'none',
             cursor: 'pointer',
         },
