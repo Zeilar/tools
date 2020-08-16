@@ -76,7 +76,6 @@ export default function ShadowGeneratorInput(props) {
     const input = useRef();
 
     function reset() {
-        console.log(props.default);
         input.current.value = props.default;
         const icon = resetIcon.current;
         icon.classList.add('spin');
