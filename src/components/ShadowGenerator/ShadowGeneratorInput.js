@@ -57,8 +57,8 @@ export default function ShadowGeneratorInput(props) {
             'user-select': 'none',
             position: 'absolute',
             padding: '0.5rem',
+            width: '3.5rem',
             top: '-1.5rem',
-            width: '3rem',
             left: '50%',
         },
         resetButtonWrapper: {
