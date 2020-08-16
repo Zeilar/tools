@@ -85,10 +85,10 @@ export default function Navbar(props) {
         <nav className={classes.navbar}>
             <ul className={classes.navList}>
                <li className={classes.navItem}>
-                    <NavLink to="/timer" className={classes.navLink} href="/timer">Timer</NavLink>
+                    <NavLink to="/timer" className={classes.navLink}>Timer</NavLink>
                </li>
                <li className={classes.navItem}>
-                    <NavLink to="/shadow-generator" className={classes.navLink} href="/shadow-generator">Shadow Generator</NavLink>
+                    <NavLink to="/shadow-generator" className={classes.navLink}>Shadow Generator</NavLink>
                </li>
             </ul>
             <div className={classes.themeTogglerWrapper}>
