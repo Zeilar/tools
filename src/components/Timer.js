@@ -13,6 +13,7 @@ export default function Timer() {
         },
         timerInput: {
             '-moz-appearance': 'textfield',
+            'text-align': 'center',
             'font-size': '10rem',
             background: 'none',
             color: 'inherit',
