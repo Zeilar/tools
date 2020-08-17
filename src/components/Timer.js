@@ -82,8 +82,8 @@ export default function Timer() {
             inputHours.current.value = formatNumber(Math.round(timerFormat().hours));
 
             const timerTick = setTimeout(() => {       
-                setTimerSeconds(timerSeconds - 1);
-                barWidth - (100 / originalInput) > 0 ? setBarWidth((barWidth - (100 / originalInput))) : setBarWidth(0);
+                setTimerSeconds(p => p - 1);
+                barWidth - (100 / originalInput) > 0 ? setBarWidth(p => p - (100 / originalInput)) : setBarWidth(0);
             }, 1000);
 
             if (timerSeconds <= 0) {
