@@ -4,13 +4,13 @@ import React from 'react';
 export default function Footer() {
     const styles = createUseStyles({
         footer: {
-            background: 'rgb(10, 10, 10)',
+            background: 'var(--secondary-color)',
             'margin-top': 'auto',
             padding: '2rem',
         },
         footerText: {
             'text-align': 'center',
-            color: 'white',
+            color: 'var(--text-color)',
         }
     });
     const classes = styles();
