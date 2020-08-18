@@ -30,7 +30,7 @@ export default function App() {
             <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
                 <GlobalStyles />
                 <Navbar toggleTheme={toggleTheme} theme={theme} />
-                <Route path="/timer" component={Timer} active={true} />
+                <Route path="/timer" component={Timer} />
                 <Route path="/shadow-generator" component={ShadowGenerator} />
                 <Footer />
             </ThemeProvider>

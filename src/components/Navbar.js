@@ -2,7 +2,7 @@ import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { createUseStyles } from 'react-jss';
 import { NavLink } from 'react-router-dom';
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 export default function Navbar(props) {
     const styles = createUseStyles({
@@ -24,8 +24,10 @@ export default function Navbar(props) {
         navLink: {
             transition: 'color 0.15s ease-in-out, background 0.15s ease-in-out',
             padding: '1rem 1.5rem',
+            'user-select': 'none',
             'font-size': '2rem',
             background: 'none',
+            margin: '0 2rem',
             color: 'white',
             '&:visited': {
                 color: 'white',
@@ -34,7 +36,6 @@ export default function Navbar(props) {
                 color: 'dodgerblue',
             },
             '&.active': {
-                background: 'rgb(20, 20, 20)',
                 color: 'dodgerblue',
             },
         },
@@ -78,18 +79,62 @@ export default function Navbar(props) {
         checkbox: {
             display: 'none',
         },
+        activeLine: {
+            background: 'dodgerblue',
+            position: 'absolute',
+            height: '2px',
+            left: '0',
+            top: '0',
+        },
     });
     const classes = styles();
 
+    const [active, setActive] = useState(window.location.pathname);
+    const [lineOffset, setLineOffset] = useState(0);
+    const [lineHeight, setLineHeight] = useState(0);
+    const [lineWidth, setLineWidth] = useState(0);
+    const shadowGenerator = useRef();
+    const activeLine = useRef();
+    const navbar = useRef();
+    const timer = useRef();
+
+    useEffect(() => {
+        window.addEventListener('resize', setLineProperties);
+        setLineProperties();
+    }, [active, lineOffset, lineWidth, navbar]);
+
+    function setLineProperties() {
+        const links = [shadowGenerator, timer];
+        setLineHeight(Math.floor(navbar.current.getBoundingClientRect().height - activeLine.current.offsetHeight));
+        links.map(element => {
+            if (element.current.getAttribute('href') === active) {
+                if (activeLine.current.style.transition === '') {
+                    setTimeout(() => {
+                        activeLine.current.style.transition = 'transform 0.25s ease-in-out, width 0.25s ease-in-out';
+                    }, 25);
+                }
+                setLineOffset(element.current.getBoundingClientRect().left);
+                setLineWidth(element.current.getBoundingClientRect().width);
+            }
+        });
+    }
+
     return (
-        <nav className={classes.navbar}>
+        <nav className={classes.navbar} ref={navbar}>
             <ul className={classes.navList}>
-               <li className={classes.navItem}>
-                    <NavLink to="/timer" className={classes.navLink}>Timer</NavLink>
-               </li>
-               <li className={classes.navItem}>
-                    <NavLink to="/shadow-generator" className={classes.navLink}>Shadow Generator</NavLink>
-               </li>
+                <div className={classes.activeLine} ref={activeLine} style={
+                    { width: `${lineWidth}px`, transform: `translateX(${lineOffset}px)`, top: `${lineHeight}px` }
+                }></div>
+                <li className={classes.navItem}>
+                    <NavLink to="/timer" ref={timer} onClick={(e) => setActive(e.target.getAttribute('href'))} className={classes.navLink}>
+                        Timer
+                    </NavLink>
+                </li>
+                <li className={classes.navItem}>
+                    <NavLink to="/shadow-generator" ref={shadowGenerator} onClick={(e) => setActive(e.target.getAttribute('href'))} className={classes.navLink}>
+                        Shadow Generator
+                    </NavLink>
+                </li>
             </ul>
             <div className={classes.themeTogglerWrapper}>
                 <input className={classes.checkbox} type="checkbox" id="themeToggler" onChange={props.toggleTheme} />

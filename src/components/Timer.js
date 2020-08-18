@@ -181,6 +181,9 @@ export default function Timer() {
     function timerReset() {
         audio.pause();
         audio.currentTime = 0;
+        inputSeconds.current.value = '00';
+        inputMinutes.current.value = '00';
+        inputHours.current.value = '00';
         setTimerResettable(false);
         setTimerState(false);
         setOriginalInput(0);
