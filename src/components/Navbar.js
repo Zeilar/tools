@@ -23,14 +23,14 @@ export default function Navbar(props) {
         },
         navLink: {
             transition: 'color 0.15s ease-in-out, background 0.15s ease-in-out',
+            color: 'var(--text-primary-color)',
             padding: '1rem 1.5rem',
             'user-select': 'none',
             'font-size': '2rem',
             background: 'none',
             margin: '0 2rem',
-            color: 'white',
             '&:visited': {
-                color: 'var(--text-color)',
+                color: 'var(--text-primary-color)',
             },
             '&:hover': {
                 color: 'dodgerblue',

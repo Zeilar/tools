@@ -5,23 +5,25 @@ body {
 }
 
 #wrapper[data-theme="light"] {
+    --text-secondary-color: rgb(30, 30, 30);
     --primary-color: rgb(245, 245, 245);
     --bg-color: rgb(245, 245, 245);
-    --text-color: rgb(30, 30, 30);
+    --text-primary-color: black;
     --secondary-color: white;
 
+    color: var(--text-primary-color);
     background: var(--bg-color);
-    color: var(--text-color);
 }
 
 #wrapper[data-theme="dark"] {
+    --text-secondary-color: rgb(175, 175, 175);
     --secondary-color: rgb(10, 10, 10);
     --primary-color: rgb(20, 20, 20);
+    --text-primary-color: white;
     --bg-color: rgb(20, 20, 20);
-    --text-color: white;
 
+    color: var(--text-primary-color);
     background: var(--bg-color);
-    color: var(--text-color);
 }
 
 #wrapper {

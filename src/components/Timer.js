@@ -12,11 +12,11 @@ export default function Timer() {
             
         },
         timerInput: {
+            color: 'var(--text-primary-color)',
             '-moz-appearance': 'textfield',
             'text-align': 'center',
             'font-size': '10rem',
             background: 'none',
-            color: 'inherit',
             width: '12rem',
             '&::-webkit-outer-spin-button, &::-webkit-inner-spin-button': {
                 appearance: 'none',

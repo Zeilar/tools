@@ -9,7 +9,7 @@ export default function Footer() {
             padding: '2rem',
         },
         footerText: {
-            color: 'var(--text-color)',
+            color: 'var(--text-primary-color)',
             'text-align': 'center',
         }
     });
