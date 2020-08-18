@@ -7,7 +7,7 @@ import React, { useState, useRef, useEffect } from 'react';
 export default function Navbar(props) {
     const styles = createUseStyles({
         navbar: {
-            background: 'rgb(10, 10, 10)',
+            background: 'var(--secondary-color)',
             'justify-content': 'center',
             'flex-direction': 'row',
             position: 'relative',
@@ -30,7 +30,7 @@ export default function Navbar(props) {
             margin: '0 2rem',
             color: 'white',
             '&:visited': {
-                color: 'white',
+                color: 'var(--text-color)',
             },
             '&:hover': {
                 color: 'dodgerblue',
@@ -58,7 +58,7 @@ export default function Navbar(props) {
             display: 'flex',
             width: '3rem',
             '&.light': {
-                background: 'white',
+                background: 'rgb(235, 235, 235)',
             },
             '&.dark': {
                 background: 'rgb(20, 20, 20)',
