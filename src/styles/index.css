@@ -79,15 +79,8 @@ a:visited {
     color: dodgerblue;
 }
 
-button {
-    position: relative;
-}
-
-button > span {
-    transform: translate(-50%, -50%);
-    position: absolute;
-    left: 50%;
-    top: 50%;
+button * {
+    pointer-events: none;
 }
 
 button[disabled] {
@@ -102,14 +95,8 @@ button:hover {
     cursor: pointer;
 }
 
-button:not([disabled]):hover::before {
-    animation: fade-in 0.15s ease-in-out forwards;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: inherit;
-    position: absolute;
-    height: 100%;
-    content: '';
-    width: 100%;
-    left: 0;
-    top: 0;
+@keyframes buttonClickGrow {
+    25% {
+        transform: scale(1.075);
+    }
 }

@@ -6,6 +6,14 @@ import Input from './ShadowGeneratorInput';
 
 export default function ShadowGenerator() {
     const styles = createUseStyles({
+        '@keyframes grow': {
+            'from': {
+                background: 'red',
+            },
+            'to': {
+                background: 'blue',
+            },
+        },
         shadowGenerator: {
             'justify-content': 'center',
             'flex-direction': 'row',
@@ -15,7 +23,7 @@ export default function ShadowGenerator() {
         },
         shadowContainer: {
             'justify-content': 'center',
-            'flex-direction': 'row',
+            'flex-direction': 'column',
             'align-items': 'center',
             'margin-left': '3rem',
             background: 'white',
@@ -27,6 +35,7 @@ export default function ShadowGenerator() {
             'text-align': 'center',
             'font-size': '1.5rem',
             background: 'none',
+            margin: '0.5rem 0',
             color: 'black',
             width: '100%',
         },
@@ -65,6 +74,22 @@ export default function ShadowGenerator() {
             margin: 'auto',
             color: 'white',
         },
+        copyButton: {
+            transition: 'background 0.15s ease-in-out',
+            background: 'rgb(25, 25, 25)',
+            'border-radius': '0.25rem',
+            padding: '0.5rem 1rem',
+            'font-weight': 'bold',
+            'font-size': '1.5rem',
+            'margin-top': '2rem',
+            color: 'white',
+            '&:hover': {
+                background: 'black',
+            },
+            '&.animate': {
+                animation: 'buttonClickGrow 0.35s linear',
+            },
+        },
     });
     const classes = styles();
 
@@ -74,10 +99,34 @@ export default function ShadowGenerator() {
     const [inset, setInset] = useState(false);
     const [spread, setSpread] = useState(5);
     const [blur, setBlur] = useState(25);
+    const copyButtonText = useRef();
 
     const boxShadow = inset
         ? `${offsetX}px ${offsetY}px ${blur}px ${spread}px inset rgba(0, 0, 0, ${opacity / 100})`
         : `${offsetX}px ${offsetY}px ${blur}px ${spread}px rgba(0, 0, 0, ${opacity / 100})`;
+
+    function copy(e) {
+        const button = e.target;
+        copyButtonText.current.textContent = 'Copied';
+        button.classList.add('animate');
+        setTimeout(() => {
+            button.classList.remove('animate');
+        }, 350);
+        setTimeout(() => {
+            copyButtonText.current.textContent = 'Copy';
+        }, 2000);
+
+        const element = document.createElement('textarea');
+        element.value = `
+            -webkit-box-shadow: ${boxShadow};
+            -moz-box-shadow: ${boxShadow};
+            box-shadow: ${boxShadow};
+        `;
+        document.body.appendChild(element);
+        element.select();
+        document.execCommand('copy');
+        document.body.removeChild(element);
+    }
 
     return (
         <div className={classes.shadowGenerator} id="content">
@@ -95,7 +144,12 @@ export default function ShadowGenerator() {
                 </div>
             </div>
             <div className={classes.shadowContainer} style={{ boxShadow: boxShadow }}>
+                <input readOnly className={classes.shadowText} onClick={(e) => e.target.select()} value={`-webkit-box-shadow: ${boxShadow};`} />
+                <input readOnly className={classes.shadowText} onClick={(e) => e.target.select()} value={`-moz-box-shadow: ${boxShadow};`} />
                 <input readOnly className={classes.shadowText} onClick={(e) => e.target.select()} value={`box-shadow: ${boxShadow};`} />
+                <button className={classes.copyButton} onClick={copy}>
+                    <span className={classes.copyButtonText} ref={copyButtonText}>Copy</span>
+                </button>
             </div>
         </div>
     );
