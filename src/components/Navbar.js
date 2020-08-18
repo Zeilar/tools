@@ -90,8 +90,8 @@ export default function Navbar(props) {
     const classes = styles();
 
     const [active, setActive] = useState(window.location.pathname);
-    const [lineOffset, setLineOffset] = useState(0);
-    const [lineHeight, setLineHeight] = useState(0);
+    const [lineOffsetX, setLineOffsetX] = useState(0);
+    const [lineOffsetY, setLineOffsetY] = useState(0);
     const [lineWidth, setLineWidth] = useState(0);
     const shadowGenerator = useRef();
     const activeLine = useRef();
@@ -101,11 +101,11 @@ export default function Navbar(props) {
     useEffect(() => {
         window.addEventListener('resize', setLineProperties);
         setLineProperties();
-    }, [active, lineOffset, lineWidth, navbar]);
+    }, [active, lineOffsetX, lineWidth, navbar]);
 
     function setLineProperties() {
         const links = [shadowGenerator, timer];
-        setLineHeight(Math.floor(navbar.current.getBoundingClientRect().height - activeLine.current.offsetHeight));
+        setLineOffsetY(Math.floor(navbar.current.getBoundingClientRect().height - activeLine.current.offsetHeight));
         links.map(element => {
             if (element.current.getAttribute('href') === active) {
                 if (activeLine.current.style.transition === '') {
@@ -113,7 +113,7 @@ export default function Navbar(props) {
                         activeLine.current.style.transition = 'transform 0.25s ease-in-out, width 0.25s ease-in-out';
                     }, 25);
                 }
-                setLineOffset(element.current.getBoundingClientRect().left);
+                setLineOffsetX(element.current.getBoundingClientRect().left);
                 setLineWidth(element.current.getBoundingClientRect().width);
             }
         });
@@ -123,7 +123,7 @@ export default function Navbar(props) {
         <nav className={classes.navbar} ref={navbar}>
             <ul className={classes.navList}>
                 <div className={classes.activeLine} ref={activeLine} style={
-                    { width: `${lineWidth}px`, transform: `translateX(${lineOffset}px)`, top: `${lineHeight}px` }
+                    { width: `${lineWidth}px`, transform: `translateX(${lineOffsetX}px)`, top: `${lineOffsetY}px` }
                 }></div>
                 <li className={classes.navItem}>
                     <NavLink to="/timer" ref={timer} onClick={(e) => setActive(e.target.getAttribute('href'))} className={classes.navLink}>
