@@ -1,8 +1,5 @@
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import ShadowGenerator from './ShadowGenerator/ShadowGenerator';
-import { lightTheme, darkTheme } from "../styles/Themes";
-import { GlobalStyles } from "../styles/GlobalStyles";
-import { ThemeProvider } from "styled-components";
 import React, { useState } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
@@ -14,26 +11,21 @@ export default function App() {
     function toggleTheme(e) {
         if (theme === 'light') {
             localStorage.setItem('theme', 'dark');
-            e.target.classList.remove('light');
-            e.target.classList.add('dark');
             setTheme('dark');
         } else {
             localStorage.setItem('theme', 'light');
-            e.target.classList.remove('dark');
-            e.target.classList.add('light');
             setTheme('light');
         }
     }
 
     return (
         <Router>
-            <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
-                <GlobalStyles />
+            <div id="wrapper" data-theme={theme}>
                 <Navbar toggleTheme={toggleTheme} theme={theme} />
                 <Route path="/timer" component={Timer} />
                 <Route path="/shadow-generator" component={ShadowGenerator} />
                 <Footer />
-            </ThemeProvider>
+            </div>
         </Router>
     );
 }
