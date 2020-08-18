@@ -9,8 +9,8 @@ export default function Footer() {
             padding: '2rem',
         },
         footerText: {
-            'text-align': 'center',
             color: 'var(--text-color)',
+            'text-align': 'center',
         }
     });
     const classes = styles();
