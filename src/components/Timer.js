@@ -63,7 +63,6 @@ export default function Timer() {
     const classes = styles();
 
     const [timerResettable, setTimerResettable] = useState(false);
-    const [timerPlayable, setTimerPlayable] = useState(false);
     const [originalInput, setOriginalInput] = useState(0);
     const [timerActive, setTimerState] = useState(false);
     const [timerSeconds, setTimerSeconds] = useState(0);
@@ -149,7 +148,6 @@ export default function Timer() {
         if (timerSeconds > 0) {
             seconds = timerSeconds;
             minutes = seconds / 60;
-            hours = 0;
 
             if (timerSeconds > 60 * 60) hours = (minutes / 60) % 60;
 
@@ -161,6 +159,7 @@ export default function Timer() {
                 hours -= seconds / 60 / 60;
             }
         }
+
         return {
             seconds: seconds,
             minutes: minutes,

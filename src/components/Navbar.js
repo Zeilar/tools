@@ -1,8 +1,8 @@
 import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useState, useRef, useEffect } from 'react';
 import { createUseStyles } from 'react-jss';
 import { NavLink } from 'react-router-dom';
-import React, { useState, useRef, useEffect } from 'react';
 
 export default function Navbar(props) {
     const styles = createUseStyles({
@@ -28,7 +28,7 @@ export default function Navbar(props) {
             'user-select': 'none',
             'font-size': '2rem',
             background: 'none',
-            margin: '0 2rem',
+            margin: '0 1.5rem',
             '&:visited': {
                 color: 'var(--text-primary-color)',
             },
