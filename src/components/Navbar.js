@@ -1,9 +1,9 @@
 import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState, useRef, useEffect } from 'react';
-import Flexboxer from './Flexboxer/Flexboxer';
 import { createUseStyles } from 'react-jss';
 import { NavLink } from 'react-router-dom';
+import Expressions from './Expressions';
 
 export default function Navbar(props) {
     const styles = createUseStyles({
@@ -96,7 +96,7 @@ export default function Navbar(props) {
     const [lineWidth, setLineWidth] = useState(0);
     const shadowGenerator = useRef();
     const activeLine = useRef();
-    const flexboxer = useRef();
+    const expressions = useRef();
     const navbar = useRef();
     const timer = useRef();
 
@@ -106,7 +106,7 @@ export default function Navbar(props) {
     }, [active, lineOffsetX, lineWidth, navbar]);
 
     function setLineProperties() {
-        const links = [shadowGenerator, timer, flexboxer];
+        const links = [shadowGenerator, timer, expressions];
         setLineOffsetY(Math.floor(navbar.current.getBoundingClientRect().height - activeLine.current.offsetHeight));
         links.map(element => {
             if (element.current.getAttribute('href') === active) {
@@ -128,8 +128,8 @@ export default function Navbar(props) {
                     { width: `${lineWidth}px`, transform: `translateX(${lineOffsetX}px)`, top: `${lineOffsetY}px` }
                 }></div>
                 <li className={classes.navItem}>
-                    <NavLink to="/flexboxer" ref={flexboxer} onClick={(e) => setActive(e.target.getAttribute('href'))} className={classes.navLink}>
-                        Flexboxer
+                    <NavLink to="/expressions" ref={expressions} onClick={(e) => setActive(e.target.getAttribute('href'))} className={classes.navLink}>
+                        Expressions
                     </NavLink>
                 </li>
                 <li className={classes.navItem}>

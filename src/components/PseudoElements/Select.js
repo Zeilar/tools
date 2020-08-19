@@ -4,7 +4,6 @@ import useOnclickOutside from 'react-cool-onclickoutside';
 import React, { useState, useRef } from 'react';
 import { createUseStyles } from 'react-jss';
 import Option from './Option';
-import { useEffect } from 'react';
 
 export default function Select(props) {
     const styles = createUseStyles({
@@ -50,13 +49,12 @@ export default function Select(props) {
     });
     const classes = styles();
 
-    const [selected, setSelected] = useState(localStorage.getItem('selectedOption') ?? props.children[0].props.value ?? '');
     const [open, setOpen] = useState(false);
 
     const options = [];
     let height = 0;
     props.children.forEach(option => {
-        options.push(<Option setOpen={setOpen} setSelected={setSelected} key={option.props.value} value={option.props.value} />);
+        options.push(<Option setOpen={setOpen} setSelected={props.setSelected} key={option.props.value} value={option.props.value} />);
         height += 2.5;
     });
 
@@ -66,8 +64,8 @@ export default function Select(props) {
     
     return (
         <div className={classes.selectWrapper} ref={select}>
-            <div className={`${classes.select}${open ? ' open' : ''}`} onClick={() => setOpen(p => !p)} data-selected={selected}>
-                <span>{selected}</span>
+            <div className={`${classes.select}${open ? ' open' : ''}`} onClick={() => setOpen(p => !p)} data-selected={props.selected}>
+                <span>{props.selected}</span>
                 <FontAwesomeIcon className={`${classes.selectArrow}${open ? ' open' : ''}`} icon={faChevronDown} />
             </div>
             <div className={classes.options} style={{ height: open ? `${height}rem` : '0px' }}>

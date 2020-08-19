@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import ShadowGenerator from './ShadowGenerator/ShadowGenerator';
-import Flexboxer from './Flexboxer/Flexboxer';
+import Expressions from './Expressions';
 import React, { useState } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
@@ -25,7 +25,7 @@ export default function App() {
                 <Navbar toggleTheme={toggleTheme} theme={theme} />
                 <Route path="/timer" component={Timer} />
                 <Route path="/shadow-generator" component={ShadowGenerator} />
-                <Route path="/flexboxer" component={Flexboxer} />
+                <Route path="/expressions" component={Expressions} />
                 <Footer />
             </div>
         </Router>
