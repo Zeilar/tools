@@ -1,3 +1,5 @@
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useOnclickOutside from 'react-cool-onclickoutside';
 import React, { useState, useRef } from 'react';
 import { createUseStyles } from 'react-jss';
@@ -12,16 +14,18 @@ export default function Select(props) {
             'box-shadow': '0 0 2px 0 rgba(0, 0, 0, 0.5)',
             padding: '0.5rem 0.75rem',
             'user-select': 'none',
+            'font-weight': 'bold',
             background: 'white',
             cursor: 'pointer',
             height: '2.5rem',
+            display: 'flex',
             color: 'black',
             '&.open': {
                 background: 'rgb(245, 245, 245)',
             },
         },
         selectWrapper: {
-
+            'min-width': '5rem',
         },
         options: {
             '-webkit-box-shadow': '0 1px 2px 0 rgba(0, 0, 0, 0.5)',
@@ -34,6 +38,14 @@ export default function Select(props) {
             overflow: 'hidden',
             cursor: 'pointer',
             height: '0',
+        },
+        selectArrow: {
+            transition: 'transform 0.2s ease-in-out',
+            'align-self': 'center',
+            'margin-left': 'auto',
+            '&.open': {
+                transform: 'rotate(-180deg)',
+            },
         },
     });
     const classes = styles();
@@ -54,8 +66,9 @@ export default function Select(props) {
     
     return (
         <div className={classes.selectWrapper} ref={select}>
-            <div className={`${classes.select}${open ? ' open' : ''}`} onClick={() => setOpen(p => !p)}>
-                {selected}
+            <div className={`${classes.select}${open ? ' open' : ''}`} onClick={() => setOpen(p => !p)} data-selected={selected}>
+                <span>{selected}</span>
+                <FontAwesomeIcon className={`${classes.selectArrow}${open ? ' open' : ''}`} icon={faChevronDown} />
             </div>
             <div className={classes.options} style={{ height: open ? `${height}rem` : '0px' }}>
                 {options}
