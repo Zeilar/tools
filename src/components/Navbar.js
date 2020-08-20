@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState, useRef, useEffect } from 'react';
 import { createUseStyles } from 'react-jss';
 import { NavLink } from 'react-router-dom';
-import Expressions from './Expressions';
 
 export default function Navbar(props) {
     const styles = createUseStyles({
@@ -96,7 +95,6 @@ export default function Navbar(props) {
     const [lineWidth, setLineWidth] = useState(0);
     const shadowGenerator = useRef();
     const activeLine = useRef();
-    const expressions = useRef();
     const navbar = useRef();
     const timer = useRef();
 
@@ -106,9 +104,9 @@ export default function Navbar(props) {
     }, [active, lineOffsetX, lineWidth, navbar]);
 
     function setLineProperties() {
-        const links = [shadowGenerator, timer, expressions];
+        const links = [shadowGenerator, timer];
         setLineOffsetY(Math.floor(navbar.current.getBoundingClientRect().height - activeLine.current.offsetHeight));
-        links.map(element => {
+        links.forEach(element => {
             if (element.current.getAttribute('href') === active) {
                 if (activeLine.current.style.transition === '') {
                     setTimeout(() => {
@@ -127,11 +125,6 @@ export default function Navbar(props) {
                 <div className={classes.activeLine} ref={activeLine} style={
                     { width: `${lineWidth}px`, transform: `translateX(${lineOffsetX}px)`, top: `${lineOffsetY}px` }
                 }></div>
-                <li className={classes.navItem}>
-                    <NavLink to="/expressions" ref={expressions} onClick={(e) => setActive(e.target.getAttribute('href'))} className={classes.navLink}>
-                        Expressions
-                    </NavLink>
-                </li>
                 <li className={classes.navItem}>
                     <NavLink to="/timer" ref={timer} onClick={(e) => setActive(e.target.getAttribute('href'))} className={classes.navLink}>
                         Timer

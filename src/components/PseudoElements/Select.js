@@ -24,7 +24,8 @@ export default function Select(props) {
             },
         },
         selectWrapper: {
-            'min-width': '5rem',
+            'min-width': '7.5rem',
+            position: 'absolute',
         },
         options: {
             '-webkit-box-shadow': '0 1px 2px 0 rgba(0, 0, 0, 0.5)',
@@ -33,9 +34,11 @@ export default function Select(props) {
             transition: 'height 0.35s ease-in-out',
             'border-bottom-right-radius': '2px',
             'border-bottom-left-radius': '2px',
+            position: 'absolute',
             background: 'white',
             overflow: 'hidden',
             cursor: 'pointer',
+            width: '100%',
             height: '0',
         },
         selectArrow: {
@@ -63,7 +66,7 @@ export default function Select(props) {
     });
     
     return (
-        <div className={classes.selectWrapper} ref={select}>
+        <div className={classes.selectWrapper} ref={select} style={props.style}>
             <div className={`${classes.select}${open ? ' open' : ''}`} onClick={() => setOpen(p => !p)} data-selected={props.selected}>
                 <span>{props.selected}</span>
                 <FontAwesomeIcon className={`${classes.selectArrow}${open ? ' open' : ''}`} icon={faChevronDown} />

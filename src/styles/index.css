@@ -79,6 +79,10 @@ a:visited {
     color: dodgerblue;
 }
 
+button {
+    width: fit-content;
+}
+
 button * {
     pointer-events: none;
 }
@@ -99,4 +103,17 @@ button:hover {
     25% {
         transform: scale(1.075);
     }
+}
+
+.btnPrimary {
+    transition: background 0.15s ease-in-out;
+    border-radius: 0.25rem;
+    padding: 0.5rem 1rem;
+    background: black;
+    font-weight: bold;
+    color: white;
+}
+
+.btnPrimary:hover {
+    background: dodgerblue;
 }

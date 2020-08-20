@@ -75,17 +75,8 @@ export default function ShadowGenerator() {
             color: 'white',
         },
         copyButton: {
-            transition: 'background 0.15s ease-in-out',
-            background: 'rgb(25, 25, 25)',
-            'border-radius': '0.25rem',
-            padding: '0.5rem 1rem',
-            'font-weight': 'bold',
             'font-size': '1.5rem',
             'margin-top': '2rem',
-            color: 'white',
-            '&:hover': {
-                background: 'black',
-            },
             '&.animate': {
                 animation: 'buttonClickGrow 0.35s linear',
             },
@@ -147,7 +138,7 @@ export default function ShadowGenerator() {
                 <input readOnly className={classes.shadowText} onClick={(e) => e.target.select()} value={`-webkit-box-shadow: ${boxShadow};`} />
                 <input readOnly className={classes.shadowText} onClick={(e) => e.target.select()} value={`-moz-box-shadow: ${boxShadow};`} />
                 <input readOnly className={classes.shadowText} onClick={(e) => e.target.select()} value={`box-shadow: ${boxShadow};`} />
-                <button className={classes.copyButton} onClick={copy}>
+                <button className={`${classes.copyButton} btnPrimary`} onClick={copy}>
                     <span className={classes.copyButtonText} ref={copyButtonText}>Copy</span>
                 </button>
             </div>
