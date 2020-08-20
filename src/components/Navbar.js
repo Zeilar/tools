@@ -111,7 +111,7 @@ export default function Navbar(props) {
                 if (activeLine.current.style.transition === '') {
                     setTimeout(() => {
                         activeLine.current.style.transition = 'transform 0.25s ease-in-out, width 0.25s ease-in-out';
-                    }, 25);
+                    }, 5);
                 }
                 setLineOffsetX(element.current.getBoundingClientRect().left);
                 setLineWidth(element.current.getBoundingClientRect().width);
