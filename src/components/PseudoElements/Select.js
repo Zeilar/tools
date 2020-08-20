@@ -1,8 +1,8 @@
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useOnclickOutside from 'react-cool-onclickoutside';
-import React, { useState, useRef } from 'react';
 import { createUseStyles } from 'react-jss';
+import React, { useState } from 'react';
 import Option from './Option';
 
 export default function Select(props) {
