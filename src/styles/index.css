@@ -46,7 +46,7 @@ input.noArrows::-webkit-outer-spin-button {
 }
 
 input {
-    transition: border-color 0.15s ease-in-out;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     border: 1px solid rgb(50, 50, 50);
     background: var(--secondary-color);
     color: var(--text-primary-color);
@@ -55,7 +55,7 @@ input {
 }
 
 input:focus {
-    box-shadow: 0 0 4px 0 dodgerblue;
+    box-shadow: 0 0 1px 1px dodgerblue;
     border-color: dodgerblue;
 }
 
