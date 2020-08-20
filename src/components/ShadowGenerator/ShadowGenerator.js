@@ -6,14 +6,6 @@ import Input from './ShadowGeneratorInput';
 
 export default function ShadowGenerator() {
     const styles = createUseStyles({
-        '@keyframes grow': {
-            'from': {
-                background: 'red',
-            },
-            'to': {
-                background: 'blue',
-            },
-        },
         shadowGenerator: {
             'justify-content': 'center',
             'flex-direction': 'row',
@@ -38,6 +30,7 @@ export default function ShadowGenerator() {
             margin: '0.5rem 0',
             color: 'black',
             width: '100%',
+            border: '0',
         },
         shadowInputs: {
             'flex-direction': 'column',

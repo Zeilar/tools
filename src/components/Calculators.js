@@ -12,6 +12,7 @@ export default function Calculators() {
     });
     const classes = styles();
 
+    const squareRootInput = useRef();
     const percentInputA = useRef();
     const percentInputB = useRef();
 
@@ -19,8 +20,16 @@ export default function Calculators() {
         e.preventDefault();
         const inputA = parseFloat(percentInputA.current.value);
         const inputB = parseFloat(percentInputB.current.value);
-        if (inputA <= 0 || inputB <= 0) return;
-        const result = inputA / inputB * 100;
+        const result = (inputA / inputB) * 100;
+        if (isNaN(result)) return;
+        alert(result);
+    }
+
+    function calculateSquareRoot(e) {
+        e.preventDefault();
+        const input = parseFloat(squareRootInput.current.value);
+        const result = Math.sqrt(input);
+        if (isNaN(result)) return;
         alert(result);
     }
 
@@ -28,10 +37,17 @@ export default function Calculators() {
         <div className={classes.calculatorsContainer} id="content">
             <form className={classes.percentWrapper} onSubmit={calculatePercent}>
                 <h1>What % is...</h1>
-                <input min="1" type="number" ref={percentInputA} />
+                <input className="noArrows" min="1" type="number" ref={percentInputA} />
                 <span>of</span>
-                <input min="1" type="number" ref={percentInputB} />
+                <input className="noArrows" min="1" type="number" ref={percentInputB} />
                 <button type="submit">
+                    Go
+                </button>
+            </form>
+            <form className={classes.percentWrapper} onSubmit={calculateSquareRoot}>
+                <h1>What is the square root of...</h1>
+                <input className="noArrows" type="number" ref={squareRootInput} />
+                <button type="submit" min="1">
                     Go
                 </button>
             </form>
