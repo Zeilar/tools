@@ -37,6 +37,32 @@ body {
     padding: 5%;
 }
 
+input.noArrows::-webkit-inner-spin-button {
+    appearance: none;
+}
+
+input.noArrows::-webkit-outer-spin-button {
+    appearance: none;
+}
+
+input {
+    transition: border-color 0.15s ease-in-out;
+    border: 1px solid rgb(50, 50, 50);
+    background: var(--secondary-color);
+    color: var(--text-primary-color);
+    border-radius: 2px;
+    padding: 0.25rem;
+}
+
+input:focus {
+    border-color: dodgerblue;
+}
+
+input::placeholder {
+    color: rgb(50, 50, 50);
+    user-select: none;
+}
+
 @keyframes fade-in {
     from {
         opacity: 0;

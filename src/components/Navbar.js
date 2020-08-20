@@ -3,6 +3,7 @@ import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { createUseStyles } from 'react-jss';
 import { NavLink } from 'react-router-dom';
+import Calculators from './Calculators';
 
 export default function Navbar(props) {
     const styles = createUseStyles({
@@ -94,12 +95,13 @@ export default function Navbar(props) {
     const [lineOffsetY, setLineOffsetY] = useState(0);
     const [lineWidth, setLineWidth] = useState(0);
     const shadowGenerator = useRef();
+    const calculators = useRef();
     const activeLine = useRef();
     const navbar = useRef();
     const timer = useRef();
 
     const setlineProperties = useCallback(() => {
-        const links = [shadowGenerator, timer];
+        const links = [shadowGenerator, timer, calculators];
         setLineOffsetY(Math.floor(navbar.current.getBoundingClientRect().height - activeLine.current.offsetHeight));
         links.forEach(element => {
             if (element.current.getAttribute('href') === active) {
@@ -126,6 +128,11 @@ export default function Navbar(props) {
                 <div className={classes.activeLine} ref={activeLine} style={
                     { width: `${lineWidth}px`, transform: `translateX(${lineOffsetX}px)`, top: `${lineOffsetY}px` }
                 }></div>
+                <li className={classes.navItem}>
+                    <NavLink to="/calculators" ref={calculators} onClick={(e) => setActive(e.target.getAttribute('href'))} className={classes.navLink}>
+                        Calculators
+                    </NavLink>
+                </li>
                 <li className={classes.navItem}>
                     <NavLink to="/timer" ref={timer} onClick={(e) => setActive(e.target.getAttribute('href'))} className={classes.navLink}>
                         Timer

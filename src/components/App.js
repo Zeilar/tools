@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import ShadowGenerator from './ShadowGenerator/ShadowGenerator';
 import React, { useState } from 'react';
+import Calculators from './Calculators';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import Timer from './Timer';
@@ -22,8 +23,9 @@ export default function App() {
         <Router>
             <div id="wrapper" data-theme={theme}>
                 <Navbar toggleTheme={toggleTheme} theme={theme} />
-                <Route path="/timer" component={Timer} />
                 <Route path="/shadow-generator" component={ShadowGenerator} />
+                <Route path="/calculators" component={Calculators} />
+                <Route path="/timer" component={Timer} />
                 <Footer />
             </div>
         </Router>
