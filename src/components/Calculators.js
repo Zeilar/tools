@@ -20,7 +20,7 @@ export default function Calculators() {
         const inputA = parseFloat(percentInputA.current.value);
         const inputB = parseFloat(percentInputB.current.value);
         if (inputA <= 0 || inputB <= 0) return;
-        const result = (inputA) / parseFloat(inputB) * 100;
+        const result = inputA / inputB * 100;
         alert(result);
     }
 
