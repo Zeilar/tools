@@ -94,28 +94,23 @@ export default function Navbar(props) {
     const [lineOffsetX, setLineOffsetX] = useState(0);
     const [lineOffsetY, setLineOffsetY] = useState(0);
     const [lineWidth, setLineWidth] = useState(0);
-    const shadowGenerator = useRef();
-    const calculators = useRef();
     const activeLine = useRef();
     const navbar = useRef();
-    const timer = useRef();
 
     const setlineProperties = useCallback(() => {
-        const links = [shadowGenerator, timer, calculators];
         setLineOffsetY(Math.floor(navbar.current.getBoundingClientRect().height - activeLine.current.offsetHeight));
-        links.forEach(element => {
-            if (element.current.getAttribute('href') === active) {
+        document.querySelectorAll(`.${classes.navLink}`).forEach(element => {
+            if (element.getAttribute('href') === active) {
                 if (activeLine.current.style.transition === '') {
                     setTimeout(() => {
                         activeLine.current.style.transition = 'transform 0.25s ease-in-out, width 0.25s ease-in-out';
                     }, 5);
                 }
-                setLineOffsetX(element.current.getBoundingClientRect().left);
-                setLineWidth(element.current.getBoundingClientRect().width);
+                setLineOffsetX(element.getBoundingClientRect().left);
+                setLineWidth(element.getBoundingClientRect().width);
             }
         });
-        
-    }, [active]);
+    }, [active, classes.navLink, activeLine]);
 
     useEffect(() => {
         window.addEventListener('resize', setlineProperties);
@@ -129,17 +124,17 @@ export default function Navbar(props) {
                     { width: `${lineWidth}px`, transform: `translateX(${lineOffsetX}px)`, top: `${lineOffsetY}px` }
                 }></div>
                 <li className={classes.navItem}>
-                    <NavLink to="/calculators" ref={calculators} onClick={(e) => setActive(e.target.getAttribute('href'))} className={classes.navLink}>
+                    <NavLink to="/calculators" onClick={(e) => setActive(e.target.getAttribute('href'))} className={classes.navLink}>
                         Calculators
                     </NavLink>
                 </li>
                 <li className={classes.navItem}>
-                    <NavLink to="/timer" ref={timer} onClick={(e) => setActive(e.target.getAttribute('href'))} className={classes.navLink}>
+                    <NavLink to="/timer" onClick={(e) => setActive(e.target.getAttribute('href'))} className={classes.navLink}>
                         Timer
                     </NavLink>
                 </li>
                 <li className={classes.navItem}>
-                    <NavLink to="/shadow-generator" ref={shadowGenerator} onClick={(e) => setActive(e.target.getAttribute('href'))} className={classes.navLink}>
+                    <NavLink to="/shadow-generator" onClick={(e) => setActive(e.target.getAttribute('href'))} className={classes.navLink}>
                         Shadow Generator
                     </NavLink>
                 </li>

@@ -20,7 +20,7 @@ export default function Calculators() {
         e.preventDefault();
         const inputA = parseFloat(percentInputA.current.value);
         const inputB = parseFloat(percentInputB.current.value);
-        const result = (inputA / inputB) * 100;
+        const result = Math.round((inputA / inputB) * 100);
         if (isNaN(result)) return;
         alert(result);
     }
@@ -28,7 +28,7 @@ export default function Calculators() {
     function calculateSquareRoot(e) {
         e.preventDefault();
         const input = parseFloat(squareRootInput.current.value);
-        const result = Math.sqrt(input);
+        const result = Math.round(Math.sqrt(input));
         if (isNaN(result)) return;
         alert(result);
     }
