@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { createUseStyles } from 'react-jss';
 
 export default function Timer() {
@@ -17,10 +17,8 @@ export default function Timer() {
             'text-align': 'center',
             'font-size': '10rem',
             background: 'none',
+            border: 'none',
             width: '12rem',
-            '&::-webkit-outer-spin-button, &::-webkit-inner-spin-button': {
-                appearance: 'none',
-            },
         },
         timerInputSeparator: {
             'user-select': 'none',
@@ -72,6 +70,32 @@ export default function Timer() {
     const resetButton = useRef();
     const inputHours = useRef();
 
+    const timerFormat = useCallback(() => {
+        let seconds = 0;
+        let minutes = 0;
+        let hours = 0;
+
+        if (timerSeconds > 0) {
+            seconds = timerSeconds;
+            minutes = seconds / 60;
+
+            if (timerSeconds > 60 * 60) hours = (minutes / 60) % 60;
+
+            minutes = minutes % 60;
+            seconds = seconds % 60;
+            
+            if (timerSeconds > 60 * 60) {
+                hours -= minutes / 60;
+                hours -= seconds / 60 / 60;
+            }
+        }
+        return {
+            seconds: seconds,
+            minutes: minutes,
+            hours: hours,
+        };
+    }, [timerSeconds]);
+
     useEffect(() => {
         if (barWidth <= 0) setBarWidth(0); 
 
@@ -104,7 +128,7 @@ export default function Timer() {
                 clearTimeout(timerTick);
             }
         }
-    }, [timerSeconds, timerActive, barWidth, inputSeconds, inputMinutes, inputHours]);
+    }, [timerSeconds, timerActive, barWidth, inputSeconds, inputMinutes, inputHours, audio, originalInput, timerFormat]);
 
     function timerStart() {
         const secondsInput = inputSeconds.current;
@@ -138,33 +162,6 @@ export default function Timer() {
         setTimerSeconds(totalSeconds);
         setTimerResettable(true);
         setTimerState(true);  
-    }
-
-    function timerFormat() {
-        let seconds = 0;
-        let minutes = 0;
-        let hours = 0;
-
-        if (timerSeconds > 0) {
-            seconds = timerSeconds;
-            minutes = seconds / 60;
-
-            if (timerSeconds > 60 * 60) hours = (minutes / 60) % 60;
-
-            minutes = minutes % 60;
-            seconds = seconds % 60;
-            
-            if (timerSeconds > 60 * 60) {
-                hours -= minutes / 60;
-                hours -= seconds / 60 / 60;
-            }
-        }
-
-        return {
-            seconds: seconds,
-            minutes: minutes,
-            hours: hours,
-        };
     }
 
     function formatInput(e) {
@@ -212,17 +209,17 @@ export default function Timer() {
         <div className={classes.timerContainer} id="content">
             <div className={classes.timerInputWrapper}>
                 <input 
-                    className={classes.timerInput} min="0" max="59" type="number" onBlur={inputChange} ref={inputHours} autoComplete="off" title="Timer hours"
+                    className={`${classes.timerInput} noArrows`} min="0" max="59" type="number" onBlur={inputChange} ref={inputHours} autoComplete="off" title="Timer hours"
                     onClick={(e) => e.target.select()} defaultValue={formatNumber(localStorage.getItem('timerHours')) ?? '00'} onWheel={inputScroll}
                 />
                 <span className={classes.timerInputSeparator}>:</span>
                 <input 
-                    className={classes.timerInput} min="0" max="59" type="number" onBlur={inputChange} ref={inputMinutes} autoComplete="off" title="Timer minutes"
+                    className={`${classes.timerInput} noArrows`} min="0" max="59" type="number" onBlur={inputChange} ref={inputMinutes} autoComplete="off" title="Timer minutes"
                     onClick={(e) => e.target.select()} defaultValue={formatNumber(localStorage.getItem('timerMinutes')) ?? '00'} onWheel={inputScroll}
                 />
                 <span className={classes.timerInputSeparator}>:</span>
                 <input 
-                    className={classes.timerInput} min="0" max="59" type="number" onBlur={inputChange} ref={inputSeconds} autoComplete="off" title="Timer seconds"
+                    className={`${classes.timerInput} noArrows`} min="0" max="59" type="number" onBlur={inputChange} ref={inputSeconds} autoComplete="off" title="Timer seconds"
                     onClick={(e) => e.target.select()} defaultValue={formatNumber(localStorage.getItem('timerSeconds')) ?? '00'} onWheel={inputScroll}
                 />
             </div>
