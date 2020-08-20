@@ -97,7 +97,7 @@ export default function ShadowGenerator() {
             button.classList.remove('animate');
         }, 350);
         setTimeout(() => {
-            copyButtonText.current.textContent = 'Copy';
+            if (copyButtonText.current) copyButtonText.current.textContent = 'Copy';
         }, 2000);
 
         const element = document.createElement('textarea');
