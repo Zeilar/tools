@@ -1,6 +1,6 @@
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState, useRef, useEffect } from 'react';
 import { createUseStyles } from 'react-jss';
 import { NavLink } from 'react-router-dom';
 
@@ -98,12 +98,7 @@ export default function Navbar(props) {
     const navbar = useRef();
     const timer = useRef();
 
-    useEffect(() => {
-        window.addEventListener('resize', setLineProperties);
-        setLineProperties();
-    }, [active, lineOffsetX, lineWidth, navbar]);
-
-    function setLineProperties() {
+    const setlineProperties = useCallback(() => {
         const links = [shadowGenerator, timer];
         setLineOffsetY(Math.floor(navbar.current.getBoundingClientRect().height - activeLine.current.offsetHeight));
         links.forEach(element => {
@@ -117,7 +112,13 @@ export default function Navbar(props) {
                 setLineWidth(element.current.getBoundingClientRect().width);
             }
         });
-    }
+        
+    }, [active]);
+
+    useEffect(() => {
+        window.addEventListener('resize', setlineProperties);
+        setlineProperties();
+    }, [active, lineOffsetX, lineWidth, navbar, setlineProperties]);
 
     return (
         <nav className={classes.navbar} ref={navbar}>
