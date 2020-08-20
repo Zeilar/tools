@@ -40,15 +40,15 @@ export default function Calculators() {
                 <input className="noArrows" min="1" type="number" ref={percentInputA} />
                 <span>of</span>
                 <input className="noArrows" min="1" type="number" ref={percentInputB} />
-                <button type="submit">
-                    Go
+                <button className="btnPrimary" type="submit">
+                    <span>Go</span>
                 </button>
             </form>
             <form className={classes.percentWrapper} onSubmit={calculateSquareRoot}>
                 <h1>What is the square root of...</h1>
                 <input className="noArrows" type="number" ref={squareRootInput} />
-                <button type="submit" min="1">
-                    Go
+                <button className="btnPrimary" type="submit" min="1">
+                    <span>Go</span>
                 </button>
             </form>
         </div>

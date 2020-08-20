@@ -55,6 +55,7 @@ input {
 }
 
 input:focus {
+    box-shadow: 0 0 4px 0 dodgerblue;
     border-color: dodgerblue;
 }
 
@@ -132,14 +133,16 @@ button:hover {
 }
 
 .btnPrimary {
-    transition: background 0.15s ease-in-out;
+    transition: color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     border-radius: 0.25rem;
     padding: 0.5rem 1rem;
     background: black;
+    position: relative;
     font-weight: bold;
     color: white;
 }
 
-.btnPrimary:hover {
-    background: dodgerblue;
+.btnPrimary:hover, .btnPrimary:focus {
+    box-shadow: 0 0 1px 1px dodgerblue;
+    color: dodgerblue;
 }
